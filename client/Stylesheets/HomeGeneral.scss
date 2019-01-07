@@ -7,7 +7,7 @@
 
   #home-title-sec {
     @include flex(column, center, flex-start);
-    width: 50%;
+    width: 40%;
     height: 100%;
 
     #home-title {
@@ -21,8 +21,18 @@
       position: relative;
       margin: 0;
       font-family: "Quicksand";
-      font-size: 22px;
+      font-size: 20px;
       left: 100px;
+    }
+  }
+
+  #home-pic-sec {
+    @include flex(column, center, flex-end);
+    width: 60%;
+    height: 100%;
+
+    #home-banner {
+      width: 700px;
     }
   }
 }

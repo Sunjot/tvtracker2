@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../Stylesheets/HomeGeneral.scss';
+import Banner from '../../public/banner.jpg';
 
 class HomeGeneral extends React.Component {
 
@@ -12,7 +13,7 @@ class HomeGeneral extends React.Component {
           <p id="home-slogan">A simplified tracker for all your favorite shows.</p>
         </div>
         <div id="home-pic-sec">
-          <p id="home-pic">Placeholder</p>
+          <img id="home-banner" src={Banner}/>
         </div>
       </div>
     );

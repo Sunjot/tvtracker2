@@ -13,6 +13,15 @@ module.exports = {
             "css-loader", // translates CSS into CommonJS
             "sass-loader" // compiles Sass to CSS, using Node Sass by default
         ]
+      },
+      { // taken from https://github.com/webpack-contrib/file-loader
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader', // used to load images
+            options: {},
+          },
+        ],
       }
     ]
   },
