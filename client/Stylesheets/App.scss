@@ -1,0 +1,24 @@
+@mixin flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand|Righteous|Amatic+SC');
+
+
+html {
+  background-color: #fdfffc;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+}
