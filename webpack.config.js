@@ -30,7 +30,9 @@ module.exports = {
     path: __dirname + '/build' // output folder
   },
   devServer: { // for webpack-dev-server
-    contentBase: __dirname + '/build' // serve content from build folder
+    contentBase: __dirname + '/build', // serve content from build folder
+    publicPath: '/',
+    historyApiFallback: true, // redirect to index file on 404
   },
   entry: __dirname + '/client/index.js' // entry file for bundling
 }

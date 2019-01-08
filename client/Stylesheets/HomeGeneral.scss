@@ -24,6 +24,21 @@
       font-size: 20px;
       left: 100px;
     }
+
+    #auth {
+      @include flex(row, flex-start, flex-start);
+      position: relative;
+      top: 15px;
+      left: 100px;
+
+      a {
+        text-decoration: none;
+        font-family: "Righteous";
+        color: black;
+        margin-right: 10px;
+        font-size: 18px;
+      }
+    }
   }
 
   #home-pic-sec {

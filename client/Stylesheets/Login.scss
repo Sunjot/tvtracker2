@@ -1,0 +1,71 @@
+@import "./App.scss";
+
+#login-cont {
+  @include flex(column, flex-start, center);
+  width: 100%;
+  margin-top: 75px;
+
+  #login-tv-title {
+    font-family: "Amatic SC";
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: black;
+    text-decoration: none;
+  }
+
+  #form {
+    @include flex(column, flex-start, center);
+    position: relative;
+    height: 350px;
+    width: 450px;
+    border-radius: 2px;
+    background-color: #2f4550;
+
+    #login-title {
+      font-family: "Quicksand";
+      font-size: 30px;
+      margin: 20px;
+      color: white;
+    }
+
+    input {
+      font-family: "Quicksand";
+    }
+
+    input[type=text], input[type=password] {
+      width: 375px;
+      height: 40px;
+      margin-bottom: 15px;
+      font-size: 20px;
+      border-radius: 2px;
+      border: 1px solid #d6d6d6;
+      padding: 5px;
+    }
+
+    input[type=submit] {
+      width: 80px;
+      height: 35px;
+      font-size: 20px;
+      background-color: white;
+      border: none;
+      border-radius: 1px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #efefef;
+      }
+    }
+
+    #signup-message {
+      font-family: "Quicksand";
+      font-size: 18px;
+      color: white;
+      margin: 50px;
+
+      a {
+        color: white;
+      }
+    }
+  }
+}
