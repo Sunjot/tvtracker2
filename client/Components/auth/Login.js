@@ -22,7 +22,16 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.username);
+    fetch('/api/login', { // send login data to api
+        method: 'POST',
+        body: JSON.stringify({username: this.state.username, password: this.state.password}),
+        headers: {"Content-Type": "application/json"},
+        credentials: "same-origin"
+      }).then((res) => {
+        return res.text();
+      }).then((data) => {
+        console.log(data);
+      });
   }
 
   render() {

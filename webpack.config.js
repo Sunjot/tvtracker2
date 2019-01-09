@@ -33,6 +33,9 @@ module.exports = {
     contentBase: __dirname + '/build', // serve content from build folder
     publicPath: '/',
     historyApiFallback: true, // redirect to index file on 404
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   },
   entry: __dirname + '/client/index.js' // entry file for bundling
 }
