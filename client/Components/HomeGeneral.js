@@ -11,7 +11,7 @@ class HomeGeneral extends React.Component {
       <div id="home-top-cont">
         <div id="home-title-sec">
           <p id="home-title">TV Calendar</p>
-          <p id="home-slogan">A simplified tracker for all your favorite shows.</p>
+          <p id="home-slogan">A tracker for all your favorite shows.</p>
           <div id="auth">
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign up</Link>

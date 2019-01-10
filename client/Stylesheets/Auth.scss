@@ -1,11 +1,11 @@
 @import "./App.scss";
 
-#login-cont {
+#auth-cont {
   @include flex(column, flex-start, center);
   width: 100%;
   margin-top: 75px;
 
-  #login-tv-title {
+  #auth-tv-title {
     font-family: "Amatic SC";
     font-size: 60px;
     margin-bottom: 20px;
@@ -16,12 +16,12 @@
   #form {
     @include flex(column, flex-start, center);
     position: relative;
-    height: 350px;
+    height: auto;
     width: 450px;
     border-radius: 2px;
     background-color: #2f4550;
 
-    #login-title {
+    #auth-title {
       font-family: "Quicksand";
       font-size: 30px;
       margin: 20px;
@@ -57,7 +57,7 @@
       }
     }
 
-    #signup-message {
+    #auth-other-message {
       font-family: "Quicksand";
       font-size: 18px;
       color: white;

@@ -23,4 +23,8 @@ app.post('/api/login', (req, res) => {
   console.log(req.body);
 })
 
+app.post('/api/signup', (req, res) => {
+  console.log(req.body);
+})
+
 app.listen(port, () => console.log(`Listening on ${port}`));
