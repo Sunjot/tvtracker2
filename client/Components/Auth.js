@@ -37,7 +37,10 @@ class Auth extends React.Component {
       }).then((res) => {
         return res.text();
       }).then((data) => {
-        console.log(data);
+        if (data === "Authorized") {
+          console.log("yes");
+          this.props.authObj.authenticate();
+        }
       });
   }
 
@@ -54,7 +57,7 @@ class Auth extends React.Component {
         }
         <input type="submit" value={this.props.authLogin ? 'Login' : 'Signup'}/>
           { this.props.authLogin ? (
-            <p id="auth-other-message">Don't have an account? <Link to='/signup'>Sign up now</Link></p>
+            <p id="auth-other-message">Don't have an account? <Link to='/home'>Sign up now</Link></p>
           ) : (
             <p id="auth-other-message">Have an account? <Link to='/login'>Log in here</Link></p>
           )}
