@@ -37,5 +37,5 @@ module.exports = {
       '/api': 'http://localhost:3000'
     }
   },
-  entry: __dirname + '/client/index.js' // entry file for bundling
+  entry: ['babel-polyfill', __dirname + '/client/index.js'] // entry file for bundling
 }

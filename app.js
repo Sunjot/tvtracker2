@@ -37,7 +37,6 @@ db.once('open', () => {
 
 app.post('/api/login', passport.authenticate('local'), function(req, res){
   req.session.cookie.expires = false;
-  req.session.cookie.maxAge = 60000;
   res.status(200).send('Authorized');
   console.log("Successful Login");
 })
@@ -58,7 +57,7 @@ app.post('/api/signup', function(req, res, next) {
 
 // Used to check if a session is established
 app.get('/api/user', function(req, res, next){
-  if (!req.user) {
+  if (!req.session) {
     res.status(401).send('Forbidden'); // no user, deny access
   }
   res.status(200).send('Authorized'); // user logged, allow access

@@ -38,8 +38,7 @@ class Auth extends React.Component {
         return res.text();
       }).then((data) => {
         if (data === "Authorized") {
-          console.log("yes");
-          this.props.authObj.authenticate();
+          localStorage.setItem('binge', 'absolutely');
         }
       });
   }
