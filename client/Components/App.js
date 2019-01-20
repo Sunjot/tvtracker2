@@ -7,10 +7,10 @@ import Auth from './Auth';
 import { BrowserRouter as Router, Route, Link , Redirect} from 'react-router-dom';
 
 // HOC that handles any routes that aren't allowed access unless logged in
-const PrivateRoute = ({component: Component, ...rest}) => (
+const PrivateRoute = ({component: Component, redirectURL: RedirectURL, ...rest}) => (
   // Before loading any of these routes, check if the user is logged in
   <Route {...rest} render={(props) => (
-    localStorage.getItem('binge') === 'absolutely' ? <Component {...props}/> : <Redirect to="/login"/>
+    localStorage.getItem('binge') === 'absolutely' ? <Component {...props}/> : <Redirect to={RedirectURL}/>
   )} />
 )
 
@@ -21,10 +21,14 @@ class App extends React.Component {
       <Router>
         <div>
           <Route exact path="/" component={HomeGeneral} />
-          <PrivateRoute exact path="/home" component={Home} />
+          <PrivateRoute exact path="/home" component={Home} redirectURL="/login"/>
           {/* authLogin prop allows component to render appropriate page (login or signup) */}
-          <Route exact path="/login" render={() => <Auth authLogin={true} />} />
-          <Route exact path="/signup" render={() => <Auth authLogin={false} />} />
+          <Route exact path="/login" render={() => (localStorage.getItem('binge') === 'absolutely' ?
+            <Redirect to="/home"/> : <Auth authType="login"/>
+          )}/>
+          <Route exact path="/signup" render={() => (localStorage.getItem('binge') === 'absolutely' ?
+            <Redirect to="/home"/> : <Auth authType="signup"/>
+          )}/>
         </div>
       </Router>
     );

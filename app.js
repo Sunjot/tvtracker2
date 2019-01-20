@@ -15,7 +15,7 @@ dotenv.config(); // used to load env variables from .env file
 app.use(session({
   secret: process.env.SESSECRET,
   cookie: {},
-  resave: false,
+  resave: true,
   saveUninitialized: false,
 }));
 app.use(bodyParser.json()); // Used to parse JSON request body
@@ -36,10 +36,15 @@ db.once('open', () => {
 });
 
 app.post('/api/login', passport.authenticate('local'), function(req, res){
-  req.session.cookie.expires = false;
+  var hour = 3600000;
+  req.session.cookie.maxAge = new Date(Date.now() + hour);
   res.status(200).send('Authorized');
   console.log("Successful Login");
-})
+});
+
+app.get('/api/logout', function(req, res){
+  req.session.destroy();
+});
 
 app.post('/api/signup', function(req, res, next) {
   User.register(new User({username: req.body.username}), req.body.password, function(err) {
