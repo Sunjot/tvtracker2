@@ -6,12 +6,6 @@ import Banner from '../../public/banner.jpg';
 
 class HomeGeneral extends React.Component {
 
-  logout = () => {
-    fetch('/api/logout', {method: 'GET', credentials: "same-origin"});
-    localStorage.removeItem('binge');
-    this.props.history.push('/');
-  }
-
   render() {
     return (
       <div id="home-top-cont">
@@ -21,7 +15,6 @@ class HomeGeneral extends React.Component {
           <div id="auth">
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign up</Link>
-            <Link to="/" onClick={this.logout}>Log out</Link>
           </div>
         </div>
         <div id="home-pic-sec">

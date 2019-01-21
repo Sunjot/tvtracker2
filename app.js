@@ -36,8 +36,6 @@ db.once('open', () => {
 });
 
 app.post('/api/login', passport.authenticate('local'), function(req, res){
-  var hour = 3600000;
-  req.session.cookie.maxAge = new Date(Date.now() + hour);
   res.status(200).send('Authorized');
   console.log("Successful Login");
 });
