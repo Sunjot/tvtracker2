@@ -6,13 +6,13 @@
 }
 
 #search-title {
-  font-family: 'Quicksand';
-  font-size: 25px;
+  font-family: 'Staatliches';
+  font-size: 30px;
   margin: 40 0 0 0;
 }
 
 #search-bar {
-  margin: 20px;
+  margin: 20 20 10 20;
   width: 800px;
   height: 50px;
   font-size: 20px;
@@ -34,23 +34,34 @@
 
 #results-cont {
   width: 800px;
-  max-height: 300px;
+  max-height: 320px;
   overflow-y: scroll;
-  border: 1px solid #a0a0a0;
+  border: 1px solid black;
   border-radius: 3px;
 
   .result-row {
     @include flex(row, flex-start, flex-start);
-    border-bottom: 1px solid #a0a0a0;
+    border-bottom: 1px solid black;
     height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    animation: fadein 1s;
 
     .show-info {
       @include flex(column, flex-start, flex-start);
 
-      .show-name {
-        font-size: 20px;
-        font-family: "Staatliches";
-        margin: 10 0 10 0;
+      .name-cont {
+        @include flex(row, flex-start, flex-start);
+
+        .show-name {
+          font-size: 20px;
+          font-family: "Staatliches";
+        }
+
+        #plus-icon {
+          margin: 0 0 0 5;
+        }
+
       }
 
       .show-overview {
@@ -60,9 +71,18 @@
     }
 
     img {
-      margin: 10px;
+      margin: 0 10 0 0;
       min-width: 80px;
       max-width: 80px;
     }
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

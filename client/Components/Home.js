@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import '../Stylesheets/Home.scss';
 import Nav from './Nav';
+import Plus from 'react-feather/dist/icons/plus-square';
 
 class Home extends React.Component {
 
@@ -36,15 +37,19 @@ class Home extends React.Component {
     clearTimeout(this.state.timerRef);
     var queryValue = e.target.value;
     this.setState({
-      timerRef: setTimeout(() => this.getSearch(queryValue), 500)
+      timerRef: setTimeout(() => this.getSearch(queryValue), 300)
     });
+  }
+
+  addShow = (e) => {
+    console.log(e.currentTarget.parentNode.id);
   }
 
   render() {
     return (
       <div id="home-cont">
         <Nav />
-        <p id="search-title">What ya watchin' currently?</p>
+        <p id="search-title">What ya watchin'?</p>
         <input type="text" placeholder="Type over me" id="search-bar" onKeyUp={e => this.handleKey(e)}/>
         {this.state.searchResults !== "" &&
           <div id="results-cont">
@@ -53,7 +58,10 @@ class Home extends React.Component {
                 <div key={res.id} className="result-row">
                   <img src={"https://image.tmdb.org/t/p/w154" + res.poster_path}/>
                   <div className="show-info">
-                    <p className="show-name">{res.original_name}</p>
+                    <div className="name-cont" id={res.id}>
+                      <p className="show-name">{res.original_name}</p>
+                      <Plus id="plus-icon" size={20} onClick={e => this.addShow(e)}/>
+                    </div>
                     { res.overview.length > 300 ?
                       <p className="show-overview"> { res.overview.substring(0, 300) + "..." }</p> :
                       <p className="show-overview">{ res.overview }</p>
