@@ -6,6 +6,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const User = require('./models/user');
+const fetch = require('node-fetch');
 
 const port = 3000;
 const app = express();
@@ -64,6 +65,13 @@ app.get('/api/user', function(req, res, next){
     res.status(401).send('Forbidden'); // no user, deny access
   }
   res.status(200).send('Authorized'); // user logged, allow access
+});
+
+app.post('/api/search', function(req, res, next){
+  var searchURL = "https://api.themoviedb.org/3/search/tv?api_key="
+  + process.env.TMDBKEY + "&language=en-US&page=1&query=" + req.body.query;
+
+  fetch(searchURL, {method: 'get'}).then((res) => { return res.text(); }).then((data) => { return res.send(data) });
 });
 
 app.listen(port, () => console.log(`Listening on ${port}`));

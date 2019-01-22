@@ -5,40 +5,64 @@
   width: 100%;
 }
 
-#nav-bar {
-  @include flex(row, center, center);
-  position: relative;
-  width: 90%;
-  height: 75px;
+#search-title {
+  font-family: 'Quicksand';
+  font-size: 25px;
+  margin: 40 0 0 0;
+}
 
-  .nav-item {
-    margin: 0 30px 0 30px;
-    font-size: 25px;
-    font-family: 'Quattrocento Sans';
-    cursor: pointer;
+#search-bar {
+  margin: 20px;
+  width: 800px;
+  height: 50px;
+  font-size: 20px;
+  font-family: 'Quicksand';
+  padding: 5 10 5 10;
+  background-color: #fdfffc;
+  border: 1px solid #a0a0a0;
+  transition: border-color 0.5s;
+  border-radius: 3px;
+
+  &::placeholder {
+    opacity: 0.6;
   }
 
-  #home-link {
-    position: absolute;
-    left: 0;
-  }
-
-  #logout-link {
-    position: absolute;
-    right: 0px;
-  }
-
-  svg {
-    transition: stroke 0.5s;
-
-    &:hover {
-      stroke: #96587a;
-    }
+  &:focus {
+    border: 1px solid black;
   }
 }
 
-#bottom-nav-border {
-  height: 1px;
-  width: 90%;
-  background-color: #828282;
+#results-cont {
+  width: 800px;
+  max-height: 300px;
+  overflow-y: scroll;
+  border: 1px solid #a0a0a0;
+  border-radius: 3px;
+
+  .result-row {
+    @include flex(row, flex-start, flex-start);
+    border-bottom: 1px solid #a0a0a0;
+    height: 150px;
+
+    .show-info {
+      @include flex(column, flex-start, flex-start);
+
+      .show-name {
+        font-size: 20px;
+        font-family: "Staatliches";
+        margin: 10 0 10 0;
+      }
+
+      .show-overview {
+        font-size: 14px;
+        font-family: "Quicksand";
+      }
+    }
+
+    img {
+      margin: 10px;
+      min-width: 80px;
+      max-width: 80px;
+    }
+  }
 }

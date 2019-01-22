@@ -1,0 +1,44 @@
+@import "./App.scss";
+
+#nav-cont {
+  @include flex(column, flex-start, center);
+  width: 100%;
+}
+
+#nav-bar {
+  @include flex(row, center, center);
+  position: relative;
+  width: 90%;
+  height: 75px;
+
+  .nav-item {
+    margin: 0 30px 0 30px;
+    font-size: 25px;
+    font-family: 'Quattrocento Sans';
+    cursor: pointer;
+  }
+
+  #home-link {
+    position: absolute;
+    left: 0;
+  }
+
+  #logout-link {
+    position: absolute;
+    right: 0px;
+  }
+
+  svg {
+    transition: stroke 0.5s;
+
+    &:hover {
+      stroke: #96587a;
+    }
+  }
+}
+
+#bottom-nav-border {
+  height: 1px;
+  width: 90%;
+  background-color: #828282;
+}

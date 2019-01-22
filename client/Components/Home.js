@@ -2,35 +2,68 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import '../Stylesheets/Home.scss';
-import LogOut from 'react-feather/dist/icons/log-out';
-import HomeIcon from 'react-feather/dist/icons/home';
+import Nav from './Nav';
 
 class Home extends React.Component {
 
-  componentDidMount() {
-    fetch('/api/user', {method: 'get', credentials: 'same-origin'}).then((res) => {
-      return res.text();
-    }).then((data) => {
+  constructor() {
+    super();
+    this.state = {
+      timerRef: 0,
+      searchResults: ""
+    }
+  }
 
+  getSearch = (data) => {
+    fetch('/api/search', {
+      method: 'post',
+      credentials: 'same-origin',
+      body: JSON.stringify({query: data}),
+      headers: {"Content-Type": "application/json"}
+    }).then((res) => {
+      return res.json();
+    }).then((res) => {
+      if (res.errors || res.results.length === 0)
+        this.setState({searchResults: ""});
+      else
+        this.setState({searchResults: res.results});
     });
   }
 
-  logout = () => {
-    fetch('/api/logout', {method: 'GET', credentials: "same-origin"});
-    localStorage.removeItem('binge');
-    this.props.history.push('/');
+  /* setTimeout ensures fetch isn't fired for every key pressed and lets the user
+  finish typing. Used clearTimeout to reset the timer everytime a user presses a key. */
+  handleKey = (e) => {
+    clearTimeout(this.state.timerRef);
+    var queryValue = e.target.value;
+    this.setState({
+      timerRef: setTimeout(() => this.getSearch(queryValue), 500)
+    });
   }
 
   render() {
     return (
       <div id="home-cont">
-        <div id="nav-bar">
-          <Link id="home-link" to="/home"><HomeIcon color="black" size={25}/></Link>
-          <p className="nav-item">Collection</p>
-          <p className="nav-item">Schedule</p>
-          <Link id="logout-link" to="/" onClick={this.logout}><LogOut color="black" size={25}/></Link>
-        </div>
-        <div id="bottom-nav-border"></div>
+        <Nav />
+        <p id="search-title">What ya watchin' currently?</p>
+        <input type="text" placeholder="Type over me" id="search-bar" onKeyUp={e => this.handleKey(e)}/>
+        {this.state.searchResults !== "" &&
+          <div id="results-cont">
+            {this.state.searchResults.map((res, x) => {
+              return (
+                <div key={res.id} className="result-row">
+                  <img src={"https://image.tmdb.org/t/p/w154" + res.poster_path}/>
+                  <div className="show-info">
+                    <p className="show-name">{res.original_name}</p>
+                    { res.overview.length > 300 ?
+                      <p className="show-overview"> { res.overview.substring(0, 300) + "..." }</p> :
+                      <p className="show-overview">{ res.overview }</p>
+                    }
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        }
       </div>
     );
   }

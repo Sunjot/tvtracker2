@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../Stylesheets/HomeGeneral.scss';
 import Banner from '../../public/banner.jpg';
 
@@ -25,4 +25,4 @@ class HomeGeneral extends React.Component {
   }
 }
 
-export default withRouter(HomeGeneral);
+export default HomeGeneral;
