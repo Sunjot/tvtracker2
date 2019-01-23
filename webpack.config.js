@@ -34,7 +34,7 @@ module.exports = {
     publicPath: '/',
     historyApiFallback: true, // redirect to index file on 404
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/api': 'http://[::1]:3000'
     }
   },
   entry: ['babel-polyfill', __dirname + '/client/index.js'] // entry file for bundling

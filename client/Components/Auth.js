@@ -11,7 +11,8 @@ class Auth extends React.Component {
     this.state = {
       username: "",
       password: "",
-      password2: ""
+      password2: "",
+      comparePass: false
     };
   }
 
@@ -23,6 +24,10 @@ class Auth extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    if (this.props.authType === "login" ||
+      (this.props.authType === "signup" && this.state.password === this.state.password2))
+        this.state.comparePass = true;
+
     fetch(this.props.authType === "login" ? '/api/login' : '/api/signup', { // send login data to api
         method: 'POST',
         body: JSON.stringify(
@@ -41,7 +46,8 @@ class Auth extends React.Component {
           localStorage.setItem('binge', 'absolutely');
           this.props.history.push('/home');
         }
-      });
+      }
+    );
   }
 
   render() {

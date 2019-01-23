@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 var User = new Schema({
   username: String,
-  password: String
+  password: String,
+  shows: [{type: Schema.Types.ObjectId, ref: 'Show'}]
 }, {collection: "users"});
 
 User.plugin(passportLocalMongoose);

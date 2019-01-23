@@ -42,7 +42,12 @@ class Home extends React.Component {
   }
 
   addShow = (e) => {
-    console.log(e.currentTarget.parentNode.id);
+    fetch('/api/add', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: JSON.stringify({id: e.currentTarget.parentNode.id, poster: e.currentTarget.parentNode.dataset.poster}),
+      headers: {'Content-Type': 'application/json'}
+    });
   }
 
   render() {
@@ -58,7 +63,7 @@ class Home extends React.Component {
                 <div key={res.id} className="result-row">
                   <img src={"https://image.tmdb.org/t/p/w154" + res.poster_path}/>
                   <div className="show-info">
-                    <div className="name-cont" id={res.id}>
+                    <div className="name-cont" id={res.id} data-poster={res.poster_path}>
                       <p className="show-name">{res.original_name}</p>
                       <Plus id="plus-icon" size={20} onClick={e => this.addShow(e)}/>
                     </div>
