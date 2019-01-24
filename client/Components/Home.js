@@ -18,7 +18,7 @@ class Home extends React.Component {
   getSearch = (data) => {
     fetch('/api/search', {
       method: 'post',
-      credentials: 'same-origin',
+      credentials: 'include',
       body: JSON.stringify({query: data}),
       headers: {"Content-Type": "application/json"}
     }).then((res) => {

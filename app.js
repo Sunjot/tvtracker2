@@ -8,17 +8,23 @@ const session = require('express-session');
 const User = require('./models/user');
 const Show = require('./models/show');
 const fetch = require('node-fetch');
+const MongoStore = require('connect-mongo')(session);
 
 const port = 3000;
 const app = express();
 
 dotenv.config(); // used to load env variables from .env file
 
+// Connection to mongoDB Atlas Cluster
+var mongoURL = "mongodb+srv://sunjotsingh:" + process.env.MDBPASS + "@tvtracker-bykmv.mongodb.net/tv?retryWrites=true";
+mongoose.connect(mongoURL, {useNewUrlParser: true});
+
 app.use(session({
   secret: process.env.SESSECRET,
   cookie: {},
-  resave: true,
+  resave: false,
   saveUninitialized: false,
+  store: new MongoStore({mongooseConnection: mongoose.connection}) // save session to mongo db
 }));
 app.use(bodyParser.json()); // Used to parse JSON request body
 app.use(passport.initialize()); // initialize passport
@@ -28,9 +34,6 @@ passport.use(User.createStrategy()); // helper method of passport-local-mongoose
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Connection to mongoDB Atlas Cluster
-var mongoURL = "mongodb+srv://sunjotsingh:" + process.env.MDBPASS + "@tvtracker-bykmv.mongodb.net/tv?retryWrites=true";
-mongoose.connect(mongoURL, {useNewUrlParser: true});
 
 var db = mongoose.connection; // Connection established
 db.once('open', () => {
@@ -42,7 +45,8 @@ app.post('/api/login', passport.authenticate('local'), function(req, res){
   console.log("Successful Login");
 });
 
-app.get('/api/logout', function(req, res){
+app.post('/api/logout', function(req, res){
+  req.logout();
   req.session.destroy();
 });
 
@@ -66,10 +70,12 @@ app.post('/api/signup', function(req, res, next) {
 
 // Used to check if a session is established
 app.get('/api/user', function(req, res, next){
-  if (!req.session) {
+  if (!req.user) {
     res.status(401).send('Forbidden'); // no user, deny access
   }
-  res.status(200).send('Authorized'); // user logged, allow access
+  else {
+    res.status(200).send('Authorized'); // user logged, allow access
+  }
 });
 
 app.post('/api/search', function(req, res, next){
@@ -80,7 +86,7 @@ app.post('/api/search', function(req, res, next){
 });
 
 app.post('/api/add', function(req, res, next){
-  if (req.session) {
+  if (req.user) {
 
     // check if show exists already in the db, and create otherwise
     Show.findOne({showID: req.body.id}, (err, show) => {
@@ -95,7 +101,7 @@ app.post('/api/add', function(req, res, next){
         show = newShow;
       }
 
-      User.findOne({username: req.session.passport.user}, function(err, user){
+      User.findOne({username: req.user.username}, function(err, user){
 
         var showExists = false;
         user.populate('shows', function(err, sh){

@@ -8,7 +8,7 @@ import HomeIcon from 'react-feather/dist/icons/home';
 class Nav extends React.Component {
 
   logout = () => {
-    fetch('/api/logout', {method: 'GET', credentials: "same-origin"});
+    fetch('/api/logout', {method: 'POST', credentials: "same-origin"});
     localStorage.removeItem('binge');
     this.props.history.push('/');
   }
