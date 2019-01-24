@@ -28,11 +28,11 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={HomeGeneral} />
-          <Route exact path="/home" render={() => <Home authFunc={this.checkAuth}/>}/>
+          <Route exact path="/" render={() => <HomeGeneral authFunc={this.checkAuth}/>} />
+          <Route exact path="/home" render={() => <Home authFunc={this.checkAuth}/>} />
           {/* authLogin prop allows component to render appropriate page (login or signup) */}
-          <Route exact path="/login" render={() => <Auth authType="login" authFunc={this.checkAuth}/>}/>
-          <Route exact path="/signup" render={() => <Auth authType="signup" authFunc={this.checkAuth}/>}/>
+          <Route exact path="/login" render={() => <Auth authType="login" authFunc={this.checkAuth}/>} />
+          <Route exact path="/signup" render={() => <Auth authType="signup" authFunc={this.checkAuth}/>} />
         </div>
       </Router>
     );
