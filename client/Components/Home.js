@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import '../Stylesheets/Home.scss';
 import Nav from './Nav';
 import Plus from 'react-feather/dist/icons/plus-square';
@@ -11,7 +11,8 @@ class Home extends React.Component {
     super();
     this.state = {
       timerRef: 0,
-      searchResults: ""
+      searchResults: "",
+      auth: "Loading"
     }
   }
 
@@ -50,36 +51,56 @@ class Home extends React.Component {
     });
   }
 
+  /*  Check if the user is authenticated - If so, render component as expected.
+      Otherwise, redirect to login page */
+  componentDidMount() {
+    this.props.authFunc().then((authVal) => {
+      if (authVal === "Invalid") this.props.history.push('/login');
+      else {
+        this.setState({
+          auth: authVal
+        });
+      }
+    });
+  }
+
   render() {
     return (
-      <div id="home-cont">
-        <Nav />
-        <p id="search-title">What ya watchin'?</p>
-        <input type="text" placeholder="Type over me" id="search-bar" onKeyUp={e => this.handleKey(e)}/>
-        {this.state.searchResults !== "" &&
-          <div id="results-cont">
-            {this.state.searchResults.map((res, x) => {
-              return (
-                <div key={res.id} className="result-row">
-                  <img src={"https://image.tmdb.org/t/p/w154" + res.poster_path}/>
-                  <div className="show-info">
-                    <div className="name-cont" id={res.id} data-poster={res.poster_path}>
-                      <p className="show-name">{res.original_name}</p>
-                      <Plus id="plus-icon" size={20} onClick={e => this.addShow(e)}/>
+      <div>
+      {this.state.auth === "Loading" && // show blank screen while authenticating
+        <div></div>
+      }
+      {this.state.auth === "Valid" && // if authenticated, render page correctly
+        <div className="renderFade" id="home-cont">
+          <Nav />
+          <p id="search-title">What ya watchin'?</p>
+          <input type="text" placeholder="Type over me" id="search-bar" onKeyUp={e => this.handleKey(e)}/>
+          {this.state.searchResults !== "" &&
+            <div id="results-cont">
+              {this.state.searchResults.map((res, x) => {
+                return (
+                  <div key={res.id} className="result-row">
+                    <img src={"https://image.tmdb.org/t/p/w154" + res.poster_path}/>
+                    <div className="show-info">
+                      <div className="name-cont" id={res.id} data-poster={res.poster_path}>
+                        <p className="show-name">{res.original_name}</p>
+                        <Plus id="plus-icon" size={20} onClick={e => this.addShow(e)}/>
+                      </div>
+                      { res.overview.length > 300 ?
+                        <p className="show-overview"> { res.overview.substring(0, 300) + "..." }</p> :
+                        <p className="show-overview">{ res.overview }</p>
+                      }
                     </div>
-                    { res.overview.length > 300 ?
-                      <p className="show-overview"> { res.overview.substring(0, 300) + "..." }</p> :
-                      <p className="show-overview">{ res.overview }</p>
-                    }
                   </div>
-                </div>
-              )
-            })}
-          </div>
-        }
+                )
+              })}
+            </div>
+          }
+        </div>
+      }
       </div>
     );
   }
 }
 
-export default Home;
+export default withRouter(Home);

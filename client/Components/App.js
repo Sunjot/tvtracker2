@@ -6,29 +6,33 @@ import HomeGeneral from './HomeGeneral';
 import Auth from './Auth';
 import { BrowserRouter as Router, Route, Link , Redirect} from 'react-router-dom';
 
-// HOC that handles any routes that aren't allowed access unless logged in
-const PrivateRoute = ({component: Component, redirectURL: RedirectURL, ...rest}) => (
-  // Before loading any of these routes, check if the user is logged in
-  <Route {...rest} render={(props) => (
-    localStorage.getItem('binge') === 'absolutely' ? <Component {...props}/> : <Redirect to={RedirectURL}/>
-  )} />
-)
-
 class App extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      auth: "Loading"
+    }
+  }
+
+  /*  Authentication function resides here because we use it for every route
+      Get the auth response (logged or not) and return */
+  checkAuth = async () => {
+    var res = await fetch('/api/user', {method: 'GET', credentials: 'same-origin'});
+    var text = await res.text();
+
+    return text;
+  }
 
   render() {
     return (
       <Router>
         <div>
           <Route exact path="/" component={HomeGeneral} />
-          <PrivateRoute exact path="/home" component={Home} redirectURL="/login"/>
+          <Route exact path="/home" render={() => <Home authFunc={this.checkAuth}/>}/>
           {/* authLogin prop allows component to render appropriate page (login or signup) */}
-          <Route exact path="/login" render={() => (localStorage.getItem('binge') === 'absolutely' ?
-            <Redirect to="/home"/> : <Auth authType="login"/>
-          )}/>
-          <Route exact path="/signup" render={() => (localStorage.getItem('binge') === 'absolutely' ?
-            <Redirect to="/home"/> : <Auth authType="signup"/>
-          )}/>
+          <Route exact path="/login" render={() => <Auth authType="login" authFunc={this.checkAuth}/>}/>
+          <Route exact path="/signup" render={() => <Auth authType="signup" authFunc={this.checkAuth}/>}/>
         </div>
       </Router>
     );

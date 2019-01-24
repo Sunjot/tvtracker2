@@ -12,7 +12,8 @@ class Auth extends React.Component {
       username: "",
       password: "",
       password2: "",
-      comparePass: false
+      comparePass: false,
+      auth: "Loading"
     };
   }
 
@@ -50,24 +51,44 @@ class Auth extends React.Component {
     );
   }
 
+  /*  Check if the user is authenticated - if so, redirect to home.
+      Otherwise, render login/signup window */
+  componentDidMount() {
+    this.props.authFunc().then((authVal) => {
+      if (authVal === "Valid") this.props.history.push('/home');
+      else {
+        this.setState({
+          auth: authVal
+        });
+      }
+    });
+  }
+
   render() {
     return (
-      <div id="auth-cont">
-        <Link to="/" id="auth-tv-title">TV Calendar</Link>
-        <form id="form" onSubmit={this.handleSubmit}>
-          <p id="auth-title">{this.props.authType === "login" ? 'Login' : 'Signup'}</p>
-          <input type="text" name="username" placeholder="Username" value={this.state.name} onChange={this.handleChange}/>
-          <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
-          { this.props.authType == "signup" &&
-            <input type="password" name="password2" placeholder="Confirm Password" value={this.state.password2} onChange={this.handleChange}/>
-          }
-          <input type="submit" value={this.props.authType === "login" ? 'Login' : 'Signup'}/>
-          { this.props.authType === "login" ? (
-            <p id="auth-other-message">Don't have an account? <Link to='/signup'>Sign up now</Link></p>
-          ) : (
-            <p id="auth-other-message">Have an account? <Link to='/login'>Log in here</Link></p>
-          )}
-        </form>
+      <div>
+      {this.state.auth === "Loading" &&
+        <div></div>
+      }
+      {this.state.auth === "Invalid" &&
+        <div className="renderFade" id="auth-cont">
+          <Link to="/" id="auth-tv-title">TV Calendar</Link>
+          <form id="form" onSubmit={this.handleSubmit}>
+            <p id="auth-title">{this.props.authType === "login" ? 'Login' : 'Signup'}</p>
+            <input type="text" name="username" placeholder="Username" value={this.state.name} onChange={this.handleChange}/>
+            <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
+            { this.props.authType == "signup" &&
+              <input type="password" name="password2" placeholder="Confirm Password" value={this.state.password2} onChange={this.handleChange}/>
+            }
+            <input type="submit" value={this.props.authType === "login" ? 'Login' : 'Signup'}/>
+            { this.props.authType === "login" ? (
+              <p id="auth-other-message">Don't have an account? <Link to='/signup'>Sign up now</Link></p>
+            ) : (
+              <p id="auth-other-message">Have an account? <Link to='/login'>Log in here</Link></p>
+            )}
+          </form>
+        </div>
+      }
       </div>
     );
   }
