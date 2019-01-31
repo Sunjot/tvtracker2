@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { withRouter, Link } from 'react-router-dom';
 import '../Stylesheets/Home.scss';
-import Nav from './Nav';
 import Plus from 'react-feather/dist/icons/plus-square';
 import Check from 'react-feather/dist/icons/check-square';
 
@@ -53,7 +52,6 @@ class Home extends React.Component {
       headers: {'Content-Type': 'application/json'}
     }).then(() => {
       this.setState({
-        add: true,
         addId: [...this.state.addId, currentNode.parentNode.id]
       });
     });
@@ -76,7 +74,6 @@ class Home extends React.Component {
       }
       {this.state.auth === "Valid" && // if authenticated, render page correctly
         <div className="renderFade" id="home-cont">
-          <Nav />
           <p id="search-title">What ya watchin'?</p>
           <input type="text" placeholder="Type over me" id="search-bar" onKeyUp={e => this.handleKey(e)}/>
           {this.state.searchResults !== "" &&

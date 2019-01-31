@@ -15,10 +15,10 @@ class Nav extends React.Component {
 
   render() {
     return(
-      <div id="nav-cont">
+      <div id="nav-cont" className="renderFade">
         <div id="nav-bar">
           <Link id="home-link" to="/home"><HomeIcon color="black" size={25}/></Link>
-          <p className="nav-item">Collection</p>
+          <Link id="collectio-link" to="/collection" className="nav-item">Collection</Link>
           <p className="nav-item">Watch List</p>
           <Link id="logout-link" to="/" onClick={this.logout}><LogOut color="black" size={25}/></Link>
         </div>
