@@ -13,14 +13,12 @@ class HomeGeneral extends React.Component {
     };
   }
 
+  /*  Check authentication and redirect to home if so.
+      Otherwise, render root as expected */
   componentDidMount() {
     this.props.authFunc().then((authVal) => {
       if (authVal === "Valid") this.props.history.push('/home');
-      else {
-        this.setState({
-          auth: authVal
-        });
-      }
+      else this.setState({auth: authVal});
     });
   }
 

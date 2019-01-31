@@ -56,11 +56,7 @@ class Auth extends React.Component {
   componentDidMount() {
     this.props.authFunc().then((authVal) => {
       if (authVal === "Valid") this.props.history.push('/home');
-      else {
-        this.setState({
-          auth: authVal
-        });
-      }
+      else this.setState({auth: authVal});
     });
   }
 

@@ -4,6 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import '../Stylesheets/Home.scss';
 import Nav from './Nav';
 import Plus from 'react-feather/dist/icons/plus-square';
+import Check from 'react-feather/dist/icons/check-square';
 
 class Home extends React.Component {
 
@@ -12,7 +13,8 @@ class Home extends React.Component {
     this.state = {
       timerRef: 0,
       searchResults: "",
-      auth: "Loading"
+      auth: "Loading",
+      addId: []
     }
   }
 
@@ -43,11 +45,17 @@ class Home extends React.Component {
   }
 
   addShow = (e) => {
+    var currentNode = e.currentTarget
     fetch('/api/add', {
       method: 'POST',
       credentials: 'same-origin',
-      body: JSON.stringify({id: e.currentTarget.parentNode.id, poster: e.currentTarget.parentNode.dataset.poster}),
+      body: JSON.stringify({id: currentNode.parentNode.id, poster: currentNode.parentNode.dataset.poster}),
       headers: {'Content-Type': 'application/json'}
+    }).then(() => {
+      this.setState({
+        add: true,
+        addId: [...this.state.addId, currentNode.parentNode.id]
+      });
     });
   }
 
@@ -56,11 +64,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.authFunc().then((authVal) => {
       if (authVal === "Invalid") this.props.history.push('/login');
-      else {
-        this.setState({
-          auth: authVal
-        });
-      }
+      else this.setState({auth: authVal});
     });
   }
 
@@ -79,12 +83,15 @@ class Home extends React.Component {
             <div id="results-cont">
               {this.state.searchResults.map((res, x) => {
                 return (
-                  <div key={res.id} className="result-row">
+                  <div key={res.id} id={x} className="result-row">
                     <img src={"https://image.tmdb.org/t/p/w154" + res.poster_path}/>
                     <div className="show-info">
                       <div className="name-cont" id={res.id} data-poster={res.poster_path}>
                         <p className="show-name">{res.original_name}</p>
-                        <Plus id="plus-icon" size={20} onClick={e => this.addShow(e)}/>
+                        {this.state.addId.includes(res.id.toString()) ?
+                          <Check id="plus-icon" size={20} color="green" /> :
+                          <Plus id="plus-icon" size={20} onClick={e => this.addShow(e)}/>
+                        }
                       </div>
                       { res.overview.length > 300 ?
                         <p className="show-overview"> { res.overview.substring(0, 300) + "..." }</p> :

@@ -112,6 +112,8 @@ app.post('/api/add', isLogged, function(req, res, next){
 
     User.findOne({username: req.user.username}, function(err, user){
 
+      if (!user) res.status(401).send('Invalid');
+
       var showExists = false;
       user.populate('shows', function(err, sh){
         sh.shows.map((item, x) => {
@@ -123,6 +125,8 @@ app.post('/api/add', isLogged, function(req, res, next){
           user.save();
         }
       });
+
+      res.status(200).send('Valid');
     });
   });
 });
