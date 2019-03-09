@@ -17,7 +17,9 @@ dotenv.config(); // used to load env variables from .env file
 
 // Connection to mongoDB Atlas Cluster
 var mongoURL = "mongodb+srv://sunjotsingh:" + process.env.MDBPASS + "@tvtracker-bykmv.mongodb.net/tv?retryWrites=true";
-mongoose.connect(mongoURL, {useNewUrlParser: true});
+mongoose.connect(mongoURL, {useNewUrlParser: true}).catch(function(err) {
+  console.log("Error connecting to DB: " + err);
+});
 
 app.use(session({
   secret: process.env.SESSECRET,
@@ -92,6 +94,12 @@ app.post('/api/search', isLogged, function(req, res, next){
   + process.env.TMDBKEY + "&language=en-US&page=1&query=" + req.body.query;
 
   fetch(searchURL, {method: 'get'}).then((res) => { return res.text(); }).then((data) => { return res.send(data) });
+});
+
+app.post('/api/remove', isLogged, function(req, res, next){
+
+  // Check if a show exists before attempting to remove
+  
 });
 
 // Add show to User's show collection

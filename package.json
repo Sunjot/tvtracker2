@@ -27,6 +27,7 @@
     "react-dom": "^16.7.0",
     "react-feather": "^1.1.5",
     "react-router-dom": "^4.3.1",
+    "react-svg-loader": "^2.1.0",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {

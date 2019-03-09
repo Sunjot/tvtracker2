@@ -8,35 +8,48 @@ import Nav from './Nav';
 import Collection from './Collection';
 import { BrowserRouter as Router, Route, Link , Redirect, withRouter} from 'react-router-dom';
 
-// HOC for dealing with components that require the navigation bar
+// HOC for dealing with components that require authentication
 const PrivatePage = (Comp) => {
   return class Hoc extends React.Component {
     constructor(props) {
       super(props);
+      this.state = {
+        auth: "Loading"
+      };
+    }
+
+    /*  Check if the user is authenticated - If so, render component as expected.
+        Otherwise, redirect to login page */
+    componentDidMount(){
+      this.props.authFunc().then((authVal) => {
+        if (authVal === "Invalid") this.props.history.push('/login');
+        else this.setState({auth: authVal});
+      });
     }
 
     render() {
       return(
         <div>
-          <Nav />
-          <Comp {...this.props}/>
+          {this.state.auth === "Loading" &&
+            <div>
+            </div>
+          }
+          {this.state.auth === "Valid" &&
+            <div>
+              <Nav />
+              <Comp {...this.props}/>
+            </div>
+          }
         </div>
       );
     }
   }
 }
 
-const HomeHOC = PrivatePage(Home);
-const CollHOC = PrivatePage(Collection);
+const HomeHOC = withRouter(PrivatePage(Home));
+const CollHOC = withRouter(PrivatePage(Collection));
 
 class App extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      auth: "Loading"
-    }
-  }
 
   /*  Authentication function resides here because we use it for every route
       Get the auth response (logged or not) and return */

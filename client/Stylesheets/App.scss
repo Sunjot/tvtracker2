@@ -27,6 +27,18 @@ p {
   animation: fadein 0.2s;
 }
 
+.loading-cont {
+  @include flex(row, center, flex-start);
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
+
+  svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
