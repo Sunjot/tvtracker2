@@ -1,0 +1,13 @@
+@import "./App.scss";
+
+#coll-cont {
+  @include flex(row, center, flex-start);
+  flex-wrap: wrap;
+  margin: 40px;
+
+  img {
+    margin: 2px;
+    width: 150px;
+    border-radius: 2px;
+  }
+}

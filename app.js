@@ -90,16 +90,35 @@ app.get('/api/user', function(req, res, next){
 
 // Make API call to TMDb for searching shows and send results back to client
 app.post('/api/search', isLogged, function(req, res, next){
+
   var searchURL = "https://api.themoviedb.org/3/search/tv?api_key="
   + process.env.TMDBKEY + "&language=en-US&page=1&query=" + req.body.query;
 
-  fetch(searchURL, {method: 'get'}).then((res) => { return res.text(); }).then((data) => { return res.send(data) });
+  fetch(searchURL, {
+    method: 'get'
+  }).then((res) => {
+    return res.text();
+  }).then((data) => {
+    return res.send(data)
+  });
 });
 
 app.post('/api/remove', isLogged, function(req, res, next){
 
   // Check if a show exists before attempting to remove
-  
+
+});
+
+app.post('/api/collection', isLogged, function(req, res, next){
+
+  User.findOne({username: req.user.username}, function(err, user){
+    if (!user) res.status(401).send('Invalid');
+
+    user.populate('shows', function(err, collection){
+      res.send(collection.shows);
+    });
+  });
+
 });
 
 // Add show to User's show collection
