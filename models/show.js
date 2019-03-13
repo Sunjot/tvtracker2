@@ -5,6 +5,11 @@ var Show = new Schema({
   _id: Schema.Types.ObjectId,
   showID: Number,
   poster: String,
+  genres: [String],
+  nextAir: {
+    type: Map,
+    of: String
+  },
   users: [{type: Schema.Types.ObjectId, ref: 'User'}]
 }, {collection: "shows" });
 

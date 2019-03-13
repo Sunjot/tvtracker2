@@ -126,34 +126,56 @@ app.post('/api/add', isLogged, function(req, res, next){
 
   // check if show exists already in the db, and create otherwise
   Show.findOne({showID: req.body.id}, (err, show) => {
-    if(!show) {
-      const newShow = new Show({
-        _id: new mongoose.Types.ObjectId(),
-        showID: req.body.id,
-        poster: req.body.poster
-      });
 
-      newShow.save();
-      show = newShow;
-    }
+    // In order to limit external API requests, we fetch whatever important show data we may need
+    // frequently and store it in the db. A seperate node script will run once each day to
+    // keep that information up-to-date.
+    var tvData, tvURL = "https://api.themoviedb.org/3/tv/" + req.body.id + "?api_key=" + process.env.TMDBKEY;
+    fetch(tvURL, {
+      method: 'get'
+    }).then((res) => {
+      return res.json();
+    }).then((data) => {
 
-    User.findOne({username: req.user.username}, function(err, user){
-
-      if (!user) res.status(401).send('Invalid');
-
-      var showExists = false;
-      user.populate('shows', function(err, sh){
-        sh.shows.map((item, x) => {
-          if (item.showID === parseInt(req.body.id)) showExists = true;
+      if(!show) {
+        const newShow = new Show({
+          _id: new mongoose.Types.ObjectId(),
+          showID: req.body.id,
+          poster: req.body.poster,
+          nextAir: {}
         });
 
-        if (showExists === false) {
-          user.shows.push(show._id);
-          user.save();
+        if (data["next_episode_to_air"]) { // Store next episode date/name into map
+          newShow.nextAir.set('date', data["next_episode_to_air"].air_date);
+          newShow.nextAir.set('name', data["next_episode_to_air"].name);
         }
-      });
 
-      res.status(200).send('Valid');
+        data["genres"].map((g, x) => { // Map through and store genres in array
+          newShow.genres.push(g.name);
+        });
+
+        newShow.save();
+        show = newShow;
+      }
+
+      User.findOne({username: req.user.username}, function(err, user){
+
+        if (!user) res.status(401).send('Invalid');
+
+        var showExists = false;
+        user.populate('shows', function(err, sh){
+          sh.shows.map((item, x) => {
+            if (item.showID === parseInt(req.body.id)) showExists = true;
+          });
+
+          if (showExists === false) {
+            user.shows.push(show._id);
+            user.save();
+          }
+        });
+
+        res.status(200).send('Valid');
+      });
     });
   });
 });

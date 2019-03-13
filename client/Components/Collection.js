@@ -20,9 +20,16 @@ class Collection extends React.Component {
     }).then((res) => {
       return res.json();
     }).then((res) => {
-      this.setState({
-        collection: res
-      });
+      if (res.length > 0) {
+        this.setState({
+          collection: res
+        });
+      }
+      else {
+        this.setState({
+          collection: "None"
+        })
+      }
     });
   }
 
@@ -34,9 +41,12 @@ class Collection extends React.Component {
     return(
       <div>
         {this.state.collection === "" &&
+          <div></div>
+        }
+        {this.state.collection === "None" &&
           <div>You have no shows! Add some here.</div>
         }
-        {this.state.collection.length !== 0 &&
+        {Array.isArray(this.state.collection) &&
           <div id="coll-cont">
             {this.state.collection.map((show, x) => {
               return(
