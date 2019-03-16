@@ -1,5 +1,43 @@
 @import "./App.scss";
 
+#no-coll-cont {
+  @include flex(column, flex-start, center);
+
+  #no-show-msg {
+    @include flex(row, center, flex-start);
+    font-family: 'Montserrat';
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  #suggestions {
+    @include flex(column, flex-start, center);
+    font-family: 'Cabin Condensed';
+    font-size: 22px;
+    margin-top: 20px;
+
+    #suggestions-row {
+      @include flex(row, center, flex-start);
+      margin: 20px;
+      flex-wrap: wrap;
+
+      img {
+        height: 200px;
+        margin: 2px;
+        border-radius: 2px;
+        animation: fadein 3s;
+
+      }
+    }
+
+    #suggestions-msg {
+      font-family: 'Montserrat';
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  }
+}
+
 #coll-cont {
   @include flex(row, center, flex-start);
   flex-wrap: wrap;

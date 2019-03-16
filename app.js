@@ -180,4 +180,17 @@ app.post('/api/add', isLogged, function(req, res, next){
   });
 });
 
+app.get('/api/suggestions', isLogged, function(req, res, next) {
+
+  var popularURL = "https://api.themoviedb.org/3/tv/popular?api_key=" + process.env.TMDBKEY;
+
+  fetch(popularURL, {
+    method: 'GET'
+  }).then((data) => {
+    return data.text();
+  }).then((data) => {
+    return res.send(data);
+  });
+});
+
 app.listen(port, () => console.log(`Listening on ${port}`));
