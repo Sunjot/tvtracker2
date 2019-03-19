@@ -2,31 +2,70 @@
 
 #no-coll-cont {
   @include flex(column, flex-start, center);
+  margin-top: 40px;
 
-  #no-show-msg {
-    @include flex(row, center, flex-start);
+  #searchLink {
     font-family: 'Montserrat';
-    font-size: 18px;
-    margin-top: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border: 1px solid black;
+    color: black;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: white;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
   }
 
   #suggestions {
     @include flex(column, flex-start, center);
     font-family: 'Cabin Condensed';
     font-size: 22px;
-    margin-top: 20px;
+    margin-top: 30px;
 
     #suggestions-row {
       @include flex(row, center, flex-start);
       margin: 20px;
       flex-wrap: wrap;
 
-      img {
-        height: 200px;
-        margin: 2px;
-        border-radius: 2px;
-        animation: fadein 3s;
+      #posterDiv {
+        @include flex(row, center, center);
+        margin: 4px;
+        position: relative;
+        transition: transform 0.5s;
 
+        &:hover {
+          transform: scale(1.05);
+          cursor: pointer;
+
+          img {
+            filter: brightness(50%);
+          }
+
+          svg {
+            opacity: 1;
+          }
+        }
+
+        svg {
+          position: absolute;
+          z-index: 100;
+          padding: 5px;
+          border-color: black;
+          opacity: 0;
+          transition: opacity 0.5s;
+        }
+
+        img {
+          height: 200px;
+          border-radius: 2px;
+          animation: fadein 1s;
+          transition: filter 0.5s;
+        }
       }
     }
 
@@ -34,6 +73,8 @@
       font-family: 'Montserrat';
       font-size: 18px;
       margin-top: 20px;
+      border-bottom: 1px solid black;
+      padding: 5px;
     }
   }
 }

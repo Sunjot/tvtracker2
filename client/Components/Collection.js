@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import '../Stylesheets/Collection.scss';
+import Plus from 'react-feather/dist/icons/plus-square';
 
 class Collection extends React.Component {
 
@@ -62,16 +63,17 @@ class Collection extends React.Component {
         }
         {this.state.collection === "None" &&
           <div id="no-coll-cont">
-            <div id="no-show-msg">
-              <p>You have no shows =( You can add some <Link to="/home">here</Link></p>
-            </div>
+            <p><Link to="/home" id="searchLink">Search for shows</Link></p>
             <div id="suggestions">
               <p>OR...</p>
-              <p id="suggestions-msg">Pick from some of the suggestions below:</p>
+              <p id="suggestions-msg">Choose from some of these suggestions</p>
               <div id="suggestions-row">
                 {this.state.suggestions.slice(0, 8).map((show, x) => {
                   return (
-                    <img key={x} className="renderFade" src={"https://image.tmdb.org/t/p/w1280" + show.poster_path} />
+                    <div id="posterDiv">
+                      <Plus id="plus-icon" size={30} color="White"/>
+                      <img key={x} className="renderFade" src={"https://image.tmdb.org/t/p/w1280" + show.poster_path} />
+                    </div>
                   );
                 })}
               </div>
