@@ -48,7 +48,7 @@ class Home extends React.Component {
     fetch('/api/add', {
       method: 'POST',
       credentials: 'same-origin',
-      body: JSON.stringify({id: currentNode.parentNode.id, poster: currentNode.parentNode.dataset.poster}),
+      body: JSON.stringify({id: currentNode.parentNode.id}),
       headers: {'Content-Type': 'application/json'}
     }).then(() => {
       this.setState({

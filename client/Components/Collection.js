@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import '../Stylesheets/Collection.scss';
 import Plus from 'react-feather/dist/icons/plus-square';
+import Check from 'react-feather/dist/icons/check-square';
 
 class Collection extends React.Component {
 
@@ -10,7 +11,8 @@ class Collection extends React.Component {
     super();
     this.state = {
       collection: "",
-      suggestions: []
+      suggestions: [],
+      addId: []
     }
   }
 
@@ -48,6 +50,21 @@ class Collection extends React.Component {
     });
   }
 
+  addShow = (showID) => {
+    fetch('/api/add', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: JSON.stringify({id: showID}),
+      headers: {'Content-Type': 'application/json'}
+    }).then((res) => {
+      if(res.status === 200) {
+        this.setState({
+          addId: [...this.state.addId, showID]
+        });
+      }
+    });
+  }
+
   componentDidMount() {
     this.getCollection();
     // Contemplated putting this inside getCollection IF there was no collection
@@ -70,8 +87,11 @@ class Collection extends React.Component {
               <div id="suggestions-row">
                 {this.state.suggestions.slice(0, 8).map((show, x) => {
                   return (
-                    <div id="posterDiv">
-                      <Plus id="plus-icon" size={30} color="White"/>
+                    <div id="posterDiv" key={x} onClick={() => this.addShow(show.id)}>
+                      {this.state.addId.includes(show.id)?
+                        <Check id="plus-icon" size={30} color="White"/> :
+                        <Plus id="plus-icon" size={30} color="White"/>
+                      }
                       <img key={x} className="renderFade" src={"https://image.tmdb.org/t/p/w1280" + show.poster_path} />
                     </div>
                   );
