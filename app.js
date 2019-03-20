@@ -105,7 +105,18 @@ app.post('/api/search', isLogged, function(req, res, next){
 
 app.post('/api/remove', isLogged, function(req, res, next){
 
-  // Check if a show exists before attempting to remove
+  User.findOne({username: req.user.username}, function(err, user){
+    if (!user) res.status(401).send('Invalid');
+
+    Show.findOne({showID: req.body.id}, (err, show) => {
+      if (!show) res.status(401).send('Invalid');
+
+      user.shows.pull(show._id);
+      user.save();
+
+      res.status(200).send('Valid');
+    });
+  });
 
 });
 

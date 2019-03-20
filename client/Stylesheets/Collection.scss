@@ -31,42 +31,6 @@
       @include flex(row, center, flex-start);
       margin: 20px;
       flex-wrap: wrap;
-
-      #posterDiv {
-        @include flex(row, center, center);
-        margin: 4px;
-        position: relative;
-        transition: transform 0.5s;
-
-        &:hover {
-          transform: scale(1.05);
-          cursor: pointer;
-
-          img {
-            filter: brightness(50%);
-          }
-
-          svg {
-            opacity: 1;
-          }
-        }
-
-        svg {
-          position: absolute;
-          z-index: 100;
-          padding: 5px;
-          border-color: black;
-          opacity: 0;
-          transition: opacity 0.5s;
-        }
-
-        img {
-          height: 200px;
-          border-radius: 2px;
-          animation: fadein 1s;
-          transition: filter 0.5s;
-        }
-      }
     }
 
     #suggestions-msg {
@@ -88,5 +52,41 @@
     margin: 2px;
     width: 150px;
     border-radius: 2px;
+  }
+}
+
+#posterDiv {
+  @include flex(row, center, center);
+  margin: 4px;
+  position: relative;
+  transition: transform 0.5s;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+
+    img {
+      filter: brightness(50%);
+    }
+
+    svg {
+      opacity: 1;
+    }
+  }
+
+  svg {
+    position: absolute;
+    z-index: 100;
+    padding: 5px;
+    border-color: black;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  img {
+    height: 200px;
+    border-radius: 2px;
+    animation: fadein 1s;
+    transition: filter 0.5s;
   }
 }
