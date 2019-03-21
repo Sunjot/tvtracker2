@@ -44,15 +44,28 @@
 }
 
 #coll-cont {
-  @include flex(row, center, flex-start);
-  flex-wrap: wrap;
+  @include flex(column, flex-start, center);
   margin: 40px;
+  font-family: 'Montserrat';
 
-  img {
-    margin: 2px;
-    width: 150px;
-    border-radius: 2px;
+  #filter-list {
+    @include flex(row, center, flex-start);
+    flex-wrap: wrap;
+
+    p {
+      border: 1px solid black;
+      padding: 5px;
+      margin: 5px;
+      border-radius: 2px;
+    }
   }
+
+  #coll-row {
+    @include flex(row, center, flex-start);
+    flex-wrap: wrap;
+    margin: 20px;
+  }
+
 }
 
 #posterDiv {
