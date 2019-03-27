@@ -5,7 +5,7 @@ import Home from './Home';
 import HomeGeneral from './HomeGeneral';
 import Auth from './Auth';
 import Nav from './Nav';
-import Collection from './Collection';
+import CollectionCont from './CollectionCont';
 import { BrowserRouter as Router, Route, Link , Redirect, withRouter} from 'react-router-dom';
 
 // HOC for dealing with components that require authentication
@@ -47,7 +47,7 @@ const PrivatePage = (Comp) => {
 }
 
 const HomeHOC = withRouter(PrivatePage(Home));
-const CollHOC = withRouter(PrivatePage(Collection));
+const CollHOC = withRouter(PrivatePage(CollectionCont));
 
 class App extends React.Component {
 
