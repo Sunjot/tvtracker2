@@ -52,11 +52,28 @@
     @include flex(row, center, flex-start);
     flex-wrap: wrap;
 
-    p {
+    .filter {
       border: 1px solid black;
       padding: 5px;
       margin: 5px;
       border-radius: 2px;
+      transition: background-color 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+
+      &:hover {
+        background-color: #ededed;
+      }
+    }
+
+    .fselec {
+      background-color: black;
+      color: white;
+
+      &:hover {
+        background-color: #474747;
+      }
     }
   }
 

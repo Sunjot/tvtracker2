@@ -14,7 +14,8 @@ class Collection extends React.Component {
       collection: "", // for loading all shows in the collection on initial render
       suggestions: [], // to store all the suggestions from 3rd party api call
       addId: [], // for keeping track of which shows in the suggestion list are part of the collection
-      filters: []
+      filters: [],
+      selected: []
     }
   }
 
@@ -107,6 +108,37 @@ class Collection extends React.Component {
     this.getSuggestions();
   }
 
+  filterClick = (e) => {
+    var text = e.target.textContent;
+    if (!this.state.selected.includes(text)) {
+      this.setState({
+        selected: [...this.state.selected, text]
+      });
+    }
+    else {
+      var filterIndex = this.state.selected.indexOf(text);
+      this.setState({
+        selected: [...this.state.selected.slice(0, filterIndex),
+          ...this.state.selected.slice(filterIndex+1)]
+      });
+    }
+  }
+
+  // When a user applies the genre filter, this checks if a show fits the criteria 
+  checkGenre = (genreArray) => {
+    var set = false;
+
+    if (this.state.selected.length === 0) return true;
+    else {
+      genreArray.map((g, x) => {
+        if (this.state.selected.includes(g)) set = true;
+      });
+
+      if (set === false) return false;
+      else return true;
+    }
+  }
+
   render() {
     return(
       <div>
@@ -143,7 +175,8 @@ class Collection extends React.Component {
                 <div id="filter-list">
                 {this.state.filters.map((filter, x) => {
                   return(
-                    <p>{filter}</p>
+                    <div className={this.state.selected.includes(filter)? "filter fselec" : "filter"}
+                    key={x} onClick={(e) => this.filterClick(e)}>{filter}</div>
                   )
                 })}
                 </div>
@@ -155,9 +188,13 @@ class Collection extends React.Component {
             <div id="coll-row">
               {this.state.collection.map((show, x) => {
                 return(
-                  <div id="posterDiv" key={x} onClick={() => this.removeShow(show.showID)}>
-                    <Remove id="plus-icon" size={30} color="White"/>
-                    <img src={"https://image.tmdb.org/t/p/w1280" + show.poster}></img>
+                  <div key={x}>
+                    {this.checkGenre(show.genres) === true &&
+                      <div id="posterDiv" onClick={() => this.removeShow(show.showID)}>
+                        <Remove id="plus-icon" size={30} color="White"/>
+                        <img src={"https://image.tmdb.org/t/p/w1280" + show.poster}></img>
+                      </div>
+                    }
                   </div>
                 );
               })}
