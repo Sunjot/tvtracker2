@@ -18,9 +18,8 @@ class CollectionCont extends React.Component {
   // Pulls a user's collection of shows
   getCollection = () => {
     fetch('/api/collection', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {"Content-Type": "application/json"}
+      method: 'GET',
+      credentials: 'include'
     }).then((res) => {
       return res.json();
     }).then((res) => {

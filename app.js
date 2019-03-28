@@ -120,7 +120,7 @@ app.post('/api/remove', isLogged, function(req, res, next){
 
 });
 
-app.post('/api/collection', isLogged, function(req, res, next){
+app.get('/api/collection', isLogged, function(req, res, next){
 
   User.findOne({username: req.user.username}, function(err, user){
     if (!user) res.status(401).send('Invalid');

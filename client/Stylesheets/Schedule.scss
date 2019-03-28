@@ -1,0 +1,59 @@
+@import "./App.scss";
+
+#sched-cont {
+  @include flex(row, center, flex-start);
+  margin: 40px;
+
+  #week {
+    margin-right: 50px;
+  }
+
+  .sched-sec {
+    @include flex(column, flex-start, center);
+    width: 35%;
+    border: 1px solid #a5a5a5;
+    border-radius: 2px;
+
+    .sched-title {
+      font-family: 'Staatliches';
+      font-size: 22px;
+      padding: 10px 0 10px 0;
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid #a5a5a5;
+    }
+
+    .sched-list {
+      @include flex(column, flex-start, flex-start);
+      width: 100%;
+      min-height: 400px;
+
+      .sched-item {
+        @include flex(row, flex-start, flex-start);
+        width: 100%;
+        margin: 10px;
+
+        img {
+          width: 70px;
+        }
+
+        .show-info {
+          @include flex(column, flex-start, flex-start);
+
+          .episode-date {
+            font-family: 'Cabin Condensed';
+            font-size: 18px;
+            padding-left: 5px;
+          }
+
+          .episode-name {
+            font-family: 'Montserrat';
+            font-size: 15px;
+            padding-left: 5px;
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+}

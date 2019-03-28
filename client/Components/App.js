@@ -6,6 +6,7 @@ import HomeGeneral from './HomeGeneral';
 import Auth from './Auth';
 import Nav from './Nav';
 import CollectionCont from './CollectionCont';
+import Schedule from './Schedule';
 import { BrowserRouter as Router, Route, Link , Redirect, withRouter} from 'react-router-dom';
 
 // HOC for dealing with components that require authentication
@@ -48,6 +49,7 @@ const PrivatePage = (Comp) => {
 
 const HomeHOC = withRouter(PrivatePage(Home));
 const CollHOC = withRouter(PrivatePage(CollectionCont));
+const SchedHOC = withRouter(PrivatePage(Schedule));
 
 class App extends React.Component {
 
@@ -71,6 +73,7 @@ class App extends React.Component {
           <Route exact path="/login" render={() => <Auth authType="login" authFunc={this.checkAuth}/>} />
           <Route exact path="/signup" render={() => <Auth authType="signup" authFunc={this.checkAuth}/>} />
           <Route exact path="/collection" render={() => <CollHOC authFunc={this.checkAuth} />} />
+          <Route exact path="/schedule" render={() => <SchedHOC authFunc={this.checkAuth} />} />
         </div>
       </Router>
     );
