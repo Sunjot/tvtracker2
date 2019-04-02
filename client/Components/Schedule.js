@@ -25,8 +25,9 @@ class Schedule extends React.Component {
       data.map((show, x) => {
         if (show.nextAir.date != undefined) {
           var airDate = moment(show.nextAir.date);
-          if (airDate.isBefore(week)) {
+          if (airDate.isBefore(week)) { // if the show is airing in the next 7 days
 
+            // using index to place shows in correct order
             var index = 0;
             this.state.week.map((sh, x) => {
               if (airDate.isAfter(sh.date)) index++;
@@ -38,7 +39,7 @@ class Schedule extends React.Component {
                 ...this.state.week.slice(index)]
             });
           }
-          if (airDate.isSameOrAfter(week)) {
+          if (airDate.isSameOrAfter(week)) { // if the show is airing after the next 7 days
 
             var index = 0;
             this.state.upcoming.map((sh, x) => {
