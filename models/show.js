@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 var Show = new Schema({
   _id: Schema.Types.ObjectId,
   showID: Number,
+  name: String,
   poster: String,
   genres: [String],
   nextAir: {

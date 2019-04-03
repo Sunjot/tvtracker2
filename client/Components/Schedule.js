@@ -35,7 +35,7 @@ class Schedule extends React.Component {
 
             this.setState({
               week: [...this.state.week.slice(0, index),
-                {poster: show.poster, name: show.nextAir.name, date: airDate},
+                {poster: show.poster, showName:show.name, name: show.nextAir.name, date: airDate},
                 ...this.state.week.slice(index)]
             });
           }
@@ -48,7 +48,7 @@ class Schedule extends React.Component {
 
             this.setState({
               upcoming: [...this.state.upcoming.slice(0, index),
-                {poster: show.poster, name: show.nextAir.name, date: airDate},
+                {poster: show.poster, showName:show.name, name: show.nextAir.name, date: airDate},
                 ...this.state.upcoming.slice(index)]
             });
           }

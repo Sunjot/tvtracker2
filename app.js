@@ -151,6 +151,7 @@ app.post('/api/add', isLogged, function(req, res, next){
       if(!show) {
         const newShow = new Show({
           _id: new mongoose.Types.ObjectId(),
+          name: data["original_name"],
           showID: req.body.id,
           poster: data["poster_path"],
           nextAir: {}

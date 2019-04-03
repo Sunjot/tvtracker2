@@ -23,7 +23,6 @@ var j = schedule.scheduleJob('* 4 * * *', () => {
   updateAirDates();
 });
 
-updateAirDates();
 
 async function getShow(show) {
   console.log("Fire");

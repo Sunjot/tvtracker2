@@ -2,6 +2,7 @@
 
 #sched-cont {
   @include flex(row, center, flex-start);
+  flex-wrap: wrap;
   margin: 40px;
 
   #week {
@@ -10,7 +11,7 @@
 
   .sched-sec {
     @include flex(column, flex-start, center);
-    width: 35%;
+    width: 450px;;
     border: 1px solid #a5a5a5;
     border-radius: 2px;
 
@@ -31,7 +32,8 @@
       .sched-item {
         @include flex(row, flex-start, flex-start);
         width: 100%;
-        margin: 10px;
+        padding: 10px;
+        box-sizing: border-box;
 
         img {
           width: 70px;
@@ -39,17 +41,32 @@
 
         .show-info {
           @include flex(column, flex-start, flex-start);
+          width: 100%;
 
-          .episode-date {
-            font-family: 'Cabin Condensed';
-            font-size: 18px;
-            padding-left: 5px;
+          .name-date-cont {
+            @include flex(row, space-between, center);
+            width: 100%;
+
+            .show-name {
+              font-family: 'Montserrat';
+              font-size: 13px;
+              border: 1px solid black;
+              border-radius: 3px;
+              margin-left: 5px;
+              padding: 2 4 2 4;
+            }
+
+            .episode-date {
+              font-family: 'Cabin Condensed';
+              font-size: 14px;
+              margin-left: 5px;
+            }
           }
 
           .episode-name {
             font-family: 'Montserrat';
-            font-size: 15px;
-            padding-left: 5px;
+            font-size: 13px;
+            margin: 5 0 0 5;
             font-style: italic;
           }
         }

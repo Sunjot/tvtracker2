@@ -11,7 +11,10 @@ class ScheduleList extends React.Component {
             <div key={x} className="sched-item">
               <img src={"https://image.tmdb.org/t/p/w1280" + show.poster}/>
               <div className="show-info">
-                <div className="episode-date">{show.date.format('dddd, MMMM Do YYYY')}</div>
+                <div className="name-date-cont">
+                  <div className="show-name">{show.showName}</div>
+                  <div className="episode-date">{show.date.format('dddd, MMMM Do YYYY')}</div>
+                </div>
                 <div className="episode-name">{show.name}</div>
               </div>
             </div>
