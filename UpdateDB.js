@@ -23,9 +23,9 @@ var j = schedule.scheduleJob('* 4 * * *', () => {
   updateAirDates();
 });
 
+updateAirDates();
 
 async function getShow(show) {
-  console.log("Fire");
   var tvURL = "https://api.themoviedb.org/3/tv/" + show.showID + "?api_key=" + process.env.TMDBKEY;
   fetch(tvURL, {
     method: 'get'
@@ -33,7 +33,7 @@ async function getShow(show) {
     return res.json();
   }).then((data) => {
     // If the episode has another air date, update nextAir in the DB with the new date/name
-    if (data.next_episode_to_air) {
+    /*if (data.next_episode_to_air) {
 
       var nextDate = moment(data.next_episode_to_air.air_date);
       var currentDate = moment(show.nextAir.get('date'));
@@ -55,7 +55,35 @@ async function getShow(show) {
         sh.nextAir.set('name', undefined);
         sh.save();
       });
-    }
+    }*/
+
+    Show.findOne({showID: show.showID}, (error, sh) => {
+
+      // If the episode has another air date, update nextAir in the DB with the new date/name
+      if (data.next_episode_to_air) {
+        var nextDate = moment(data.next_episode_to_air.air_date);
+        var currentDate = moment(show.nextAir.get('date'));
+
+        // Compare episode air dates to see if they require updating
+        if (currentDate.isBefore(nextDate)) {
+          sh.nextAir.set('date', data.next_episode_to_air.air_date);
+          sh.nextAir.set('name', data.next_episode_to_air.name);
+          console.log("Updated " + data.original_name + " to " + data.next_episode_to_air.air_date);
+        }
+      }
+
+      // If the episode has no more air dates, update nextAir in the DB with an undefined date/name
+      if (!data.next_episode_to_air) {
+        sh.nextAir.set('date', undefined);
+        sh.nextAir.set('name', undefined);
+      }
+
+      if (data.poster_path != show.poster) {
+        sh.poster = data.poster_path;
+      }
+
+      sh.save();
+    });
   });
 }
 
