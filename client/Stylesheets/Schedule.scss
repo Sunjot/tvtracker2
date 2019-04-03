@@ -37,6 +37,7 @@
 
         img {
           width: 70px;
+          cursor: pointer;
         }
 
         .show-info {
@@ -72,5 +73,49 @@
         }
       }
     }
+  }
+}
+
+#expand-cont {
+
+  #expand-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    width: 600px;
+    border: 1px solid #bcbcbc;
+    background-color: white;
+    border-radius: 3px;
+    z-index: 103;
+    opacity: 0;
+    animation: fadein 0.7s forwards;
+
+    #close-icon {
+      cursor: pointer;
+    }
+  }
+
+  #expand-dim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    z-index: 102;
+    background-color: black;
+    animation: fadein2 0.7s forwards;
+  }
+
+}
+
+@keyframes fadein2 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.3;
   }
 }
