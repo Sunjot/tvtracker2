@@ -205,4 +205,17 @@ app.get('/api/suggestions', isLogged, function(req, res, next) {
   });
 });
 
+app.post('/api/tv', isLogged, function(req, res, next) {
+
+  var tvURL = "https://api.themoviedb.org/3/tv/" + req.body.id + "?api_key=" + process.env.TMDBKEY;
+
+  fetch(tvURL, {
+    method: 'get'
+  }).then((res) => {
+    return res.text();
+  }).then((data) => {
+    return res.send(data)
+  });
+});
+
 app.listen(port, () => console.log(`Listening on ${port}`));

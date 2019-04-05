@@ -27,13 +27,27 @@
     .sched-list {
       @include flex(column, flex-start, flex-start);
       width: 100%;
-      min-height: 400px;
+      min-height: 300px;
+
+      #no-listings {
+        @include flex(row, center, flex-start);
+        width: 100%;
+        margin: 10px;
+        font-family: 'Montserrat';
+        font-size: 15px;
+        font-style: italic;
+      }
 
       .sched-item {
         @include flex(row, flex-start, flex-start);
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
+        transition: background-color 0.5s;
+
+        &:hover {
+          background-color: #efefef;
+        }
 
         img {
           width: 70px;
@@ -43,6 +57,8 @@
         .show-info {
           @include flex(column, flex-start, flex-start);
           width: 100%;
+          height: 100%;
+          cursor: pointer;
 
           .name-date-cont {
             @include flex(row, space-between, center);
@@ -78,8 +94,9 @@
 
 #expand-cont {
 
-  #expand-box {
-    position: absolute;
+  #show-box {
+    @include flex(row, flex-start, flex-start);
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -90,32 +107,55 @@
     border-radius: 3px;
     z-index: 103;
     opacity: 0;
-    animation: fadein 0.7s forwards;
 
     #close-icon {
       cursor: pointer;
     }
   }
 
-  #expand-dim {
+  #dim-cont {
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
     height: 100%;
     width: 100%;
     opacity: 0;
     z-index: 102;
     background-color: black;
-    animation: fadein2 0.7s forwards;
   }
-
 }
 
-@keyframes fadein2 {
+.open {
+  animation: fadein 0.5s forwards;
+}
+
+.close {
+  animation: fadeout 0.5s forwards;
+}
+
+.dim {
+  animation: fadeinhalf 0.5s forwards;
+}
+
+.glow {
+  animation: fadeouthalf 0.5s forwards;
+}
+
+@keyframes fadeinhalf {
   from {
     opacity: 0;
   }
   to {
-    opacity: 0.3;
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeouthalf {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
   }
 }
