@@ -77,7 +77,7 @@ class Schedule extends React.Component {
           <ScheduleList showData={this.state.upcoming} expandShow={this.props.expandShow}/>
         </div>
         {this.props.expandActive === 1  &&
-          <ShowBox displayContent={this.props.displayContent} show={this.props.show} closeShow={this.props.closeShow} />
+          <ShowBox {...this.props} />
         }
       </div>
     )

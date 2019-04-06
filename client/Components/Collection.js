@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Remove from 'react-feather/dist/icons/x-square';
+import ShowBox from './ShowBox';
 
 class Collection extends React.Component {
 
@@ -64,15 +65,18 @@ class Collection extends React.Component {
             return(
               <div key={x}>
                 {this.checkGenre(show.genres) === true &&
-                  <div id="posterDiv" onClick={() => this.props.removeShow(show.showID)}>
-                    <Remove id="plus-icon" size={30} color="White"/>
-                    <img src={"https://image.tmdb.org/t/p/w1280" + show.poster}></img>
+                  <div className="posterDiv" >
+                    <Remove id="plus-icon" size={30} color="White" onClick={() => this.props.removeShow(show.showID)} />
+                    <img id={show.showID} src={"https://image.tmdb.org/t/p/w1280" + show.poster} onClick={(e) => this.props.expandShow(e)}></img>
                   </div>
                 }
               </div>
             );
           })}
         </div>
+        {this.props.expandActive === 1  &&
+          <ShowBox {...this.props} />
+        }
       </div>
     )
   }

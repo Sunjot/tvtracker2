@@ -97,7 +97,8 @@ class CollectionCont extends React.Component {
           <Suggestions addId={this.state.addId} addShow={this.addShow} removeShow={this.removeShow}/>
         }
         {Array.isArray(this.state.collection) && this.state.collection.length > 0 &&
-          <Collection collection={this.state.collection} removeShow={this.removeShow} filters={this.state.filters}/>
+          <Collection collection={this.state.collection} removeShow={this.removeShow}
+          filters={this.state.filters} expandShow={this.props.expandShow} {...this.props}/>
         }
       </div>
     );

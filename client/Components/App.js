@@ -112,6 +112,12 @@ class App extends React.Component {
 
   render() {
 
+    var props = {
+      displayContent: this.state.displayContent,
+      show: this.state.show,
+      closeShow: this.closeShow
+    }
+
     return (
       <Router>
         <div>
@@ -120,10 +126,10 @@ class App extends React.Component {
           {/* authLogin prop allows component to render appropriate page (login or signup) */}
           <Route exact path="/login" render={() => <Auth authType="login" authFunc={this.checkAuth}/>} />
           <Route exact path="/signup" render={() => <Auth authType="signup" authFunc={this.checkAuth}/>} />
-          <Route exact path="/collection" render={() => <CollHOC authFunc={this.checkAuth} />} />
+          <Route exact path="/collection" render={() => <CollHOC authFunc={this.checkAuth}
+          expandShow={this.expandShow} expandActive={this.state.expandActive} {...props} />} />
           <Route exact path="/schedule" render={() => <SchedHOC authFunc={this.checkAuth}
-          expandActive={this.state.expandActive} show={this.state.show} displayContent={this.state.displayContent}
-          expandShow={this.expandShow} closeShow={this.closeShow} />} />
+          expandShow={this.expandShow} expandActive={this.state.expandActive} {...props} />} />
         </div>
       </Router>
     );
