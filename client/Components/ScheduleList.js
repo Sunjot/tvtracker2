@@ -8,7 +8,8 @@ class ScheduleList extends React.Component {
     super();
     this.state = {
       expandActive: 0,
-      show: ''
+      show: '',
+      displayContent: 0
     };
   }
 
@@ -23,7 +24,8 @@ class ScheduleList extends React.Component {
       return res.json();
     }).then((res) => {
       this.setState({
-        show: res
+        show: res,
+        displayContent: 1
       })
     });
 
@@ -43,7 +45,8 @@ class ScheduleList extends React.Component {
     setTimeout(() => {
       this.setState({
         expandActive: 0,
-        show: ''
+        show: '',
+        displayContent: 0
       });
 
     }, 500);
@@ -63,18 +66,36 @@ class ScheduleList extends React.Component {
                 </div>
                 <div className="episode-name">{show.name}</div>
               </div>
-              {this.state.expandActive === 1  &&
-                <div id="expand-cont">
-                  <div id="show-box">
-                    <p>{this.state.show.original_name}</p>
-                    <Close id="close-icon" size={30} color="Black" onClick={() => this.closeShow()} />
-                  </div>
-                  <div id="dim-cont"></div>
-                </div>
-              }
             </div>
           )
         })}
+        {this.state.expandActive === 1  &&
+          <div id="expand-cont">
+            <div id="show-box">
+              {this.state.displayContent === 1 &&
+                <div id="show-box-inner">
+                  <img id="expand-poster" src={"https://image.tmdb.org/t/p/w1280" + this.state.show.poster_path}/>
+                  <div id="show-info">
+                    <div id="title-genres">
+                      <p id="title">{this.state.show.original_name}</p>
+                      <div id="genres">
+                        {this.state.show.genres.map((g, x) => {
+                            return (
+                              <p key={x} className="sec">{g.name}</p>
+                            )
+                          })
+                        }
+                      </div>
+                    </div>
+                    <p id="show-desc">{this.state.show.overview}</p>
+                  </div>
+                  <Close id="close-icon" size={30} color="Black" onClick={() => this.closeShow()} />
+                </div>
+              }
+            </div>
+            <div id="dim-cont"></div>
+          </div>
+        }
         {this.props.showData.length === 0 &&
           <div id="no-listings"><p>There are no listings!</p></div>
         }
