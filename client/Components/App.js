@@ -53,6 +53,15 @@ const SchedHOC = withRouter(PrivatePage(Schedule));
 
 class App extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {
+      expandActive: 0,
+      show: '',
+      displayContent: 0
+    };
+  }
+
   /*  Authentication function resides here because we use it for every route
       Get the auth response (logged or not) and return */
   checkAuth = async () => {
@@ -60,6 +69,45 @@ class App extends React.Component {
     var text = await res.text();
 
     return text;
+  }
+
+  expandShow = (e) => {
+
+    fetch('/api/tv', {
+      method: 'POST',
+      body: JSON.stringify({id: e.currentTarget.id}),
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'same-origin'
+    }).then((res) => {
+      return res.json();
+    }).then((res) => {
+      this.setState({
+        show: res,
+        displayContent: 1
+      })
+    });
+
+    this.setState({
+      expandActive: 1
+    }, () => {
+      document.getElementById("dim-cont").className = "dim";
+      document.getElementById("show-box").className = "open";
+
+    });
+  }
+
+  closeShow = () => {
+    document.getElementById("dim-cont").className = "glow";
+    document.getElementById("show-box").className = "close";
+
+    setTimeout(() => {
+      this.setState({
+        expandActive: 0,
+        show: '',
+        displayContent: 0
+      });
+
+    }, 500);
   }
 
   render() {
@@ -73,7 +121,9 @@ class App extends React.Component {
           <Route exact path="/login" render={() => <Auth authType="login" authFunc={this.checkAuth}/>} />
           <Route exact path="/signup" render={() => <Auth authType="signup" authFunc={this.checkAuth}/>} />
           <Route exact path="/collection" render={() => <CollHOC authFunc={this.checkAuth} />} />
-          <Route exact path="/schedule" render={() => <SchedHOC authFunc={this.checkAuth} />} />
+          <Route exact path="/schedule" render={() => <SchedHOC authFunc={this.checkAuth}
+          expandActive={this.state.expandActive} show={this.state.show} displayContent={this.state.displayContent}
+          expandShow={this.expandShow} closeShow={this.closeShow} />} />
         </div>
       </Router>
     );

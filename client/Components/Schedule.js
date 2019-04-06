@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import '../Stylesheets/Schedule.scss';
 import * as moment from 'moment';
 import ScheduleList from './ScheduleList';
+import ShowBox from './ShowBox';
 
 class Schedule extends React.Component {
 
@@ -36,7 +37,7 @@ class Schedule extends React.Component {
             this.setState({
               week: [...this.state.week.slice(0, index),
                 {poster: show.poster, showName:show.name, name: show.nextAir.name,
-                  date: airDate, id: show.showID, genres: show.genres},
+                  date: airDate, id: show.showID},
                 ...this.state.week.slice(index)]
             });
           }
@@ -50,7 +51,7 @@ class Schedule extends React.Component {
             this.setState({
               upcoming: [...this.state.upcoming.slice(0, index),
                 {poster: show.poster, showName:show.name, name: show.nextAir.name,
-                  date: airDate, id: show.showID, genres: show.genres},
+                  date: airDate, id: show.showID},
                 ...this.state.upcoming.slice(index)]
             });
           }
@@ -68,13 +69,16 @@ class Schedule extends React.Component {
       <div id="sched-cont">
         <div id="week" className="sched-sec">
           <div className="sched-title">This week</div>
-          <ScheduleList showData={this.state.week} />
+          <ScheduleList showData={this.state.week} expandShow={this.props.expandShow}/>
         </div>
 
         <div id="upcoming" className="sched-sec">
           <div className="sched-title">Upcoming</div>
-          <ScheduleList showData={this.state.upcoming} />
+          <ScheduleList showData={this.state.upcoming} expandShow={this.props.expandShow}/>
         </div>
+        {this.props.expandActive === 1  &&
+          <ShowBox displayContent={this.props.displayContent} show={this.props.show} closeShow={this.props.closeShow} />
+        }
       </div>
     )
   }
