@@ -32,7 +32,7 @@ async function getShow(show) {
   }).then((res) => {
     return res.json();
   }).then((data) => {
-    
+
     Show.findOne({showID: show.showID}, (error, sh) => {
 
       // If the episode has another air date, update nextAir in the DB with the new date/name
@@ -49,10 +49,10 @@ async function getShow(show) {
       }
 
       // If the episode has no more air dates, update nextAir in the DB with an undefined date/name
-      if (!data.next_episode_to_air) {
+      if (!data.next_episode_to_air && sh.nextAir.date != undefined) {
         sh.nextAir.set('date', undefined);
         sh.nextAir.set('name', undefined);
-        console.log("Updated" + data.original_name + " to no future episode air date");
+        console.log("Updated " + data.original_name + " to no future episode air date");
       }
 
       if (data.poster_path != show.poster) {

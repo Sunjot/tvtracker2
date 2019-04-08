@@ -12,7 +12,7 @@
   height: 75px;
 
   .nav-item {
-    @include flex(row, flex-start, center);
+    @include flex(column, flex-start, flex-start);
     margin: 0 15px 0 15px;
     font-size: 22px;
     font-family: 'Cabin Condensed';
@@ -21,8 +21,31 @@
     color: black;
     letter-spacing: 1px;
 
-    p {
-      margin-left: 5px;
+    &:hover {
+
+      .sliding-border {
+        animation: sliding-border-out 0.7s forwards ease-out;
+      }
+    }
+
+    .nav-item-inner {
+      @include flex(row, flex-start, center);
+
+      p {
+        margin-left: 5px;
+        transition: color 0.4s;
+      }
+    }
+
+    .sliding-border {
+      margin-top: 2px;
+      height: 1px;
+      background-color: #b5b3b3;
+      width: 0px;
+    }
+
+    .border-in {
+      animation: sliding-border-in 0.5s forwards ease-out;
     }
   }
 
@@ -36,10 +59,10 @@
   }
 
   svg {
-    transition: stroke 0.5s;
+    transition: stroke 0.4s;
 
     &:hover {
-      stroke: #96587a;
+      stroke: #ba8814;
     }
   }
 }
@@ -48,4 +71,22 @@
   height: 1px;
   width: 90%;
   background-color: #828282;
+}
+
+@keyframes sliding-border-out {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes sliding-border-in {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0px;
+  }
 }

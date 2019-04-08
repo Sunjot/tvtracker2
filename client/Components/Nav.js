@@ -15,18 +15,30 @@ class Nav extends React.Component {
     this.props.history.push('/');
   }
 
+  navHover = (e) => {
+    e.currentTarget.getElementsByClassName("sliding-border")[0].className = "sliding-border border-in";
+
+
+  }
+
   render() {
     return(
       <div id="nav-cont" className="renderFade">
         <div id="nav-bar">
           <Link id="home-link" to="/home"><HomeIcon color="black" size={25}/></Link>
-          <Link to="/collection" className="nav-item">
-            <Folder color="black" size={20}/>
-            <p>Collection</p>
+          <Link to="/collection" className="nav-item" onMouseOver={(e) => this.navHover(e)}>
+            <div className="nav-item-inner">
+              <Folder color="black" size={20}/>
+              <p>Collection</p>
+            </div>
+            <div className="sliding-border"></div>
           </Link>
-          <Link to="/schedule" className="nav-item">
-            <Calendar color="black" size={20}/>
-            <p>Schedule</p>
+          <Link to="/schedule" className="nav-item" onMouseOver={(e) => this.navHover(e)}>
+            <div className="nav-item-inner">
+              <Calendar color="black" size={20}/>
+              <p>Schedule</p>
+            </div>
+            <div className="sliding-border"></div>
           </Link>
           <Link id="logout-link" to="/" onClick={this.logout}><LogOut color="black" size={25}/></Link>
         </div>
