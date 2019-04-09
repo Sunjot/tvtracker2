@@ -9,22 +9,44 @@
   @include flex(row, center, center);
   position: relative;
   width: 90%;
-  height: 75px;
+
+  @include xs {
+    height: 50px;
+  }
+
+  @include sm {
+    height: 55px;
+  }
+
+  @include md {
+    height: 65px;
+  }
+
+  @include lg {
+    height: 75px;
+  }
 
   .nav-item {
     @include flex(column, flex-start, flex-start);
     margin: 0 15px 0 15px;
-    font-size: 22px;
     font-family: 'Cabin Condensed';
     cursor: pointer;
     text-decoration: none;
     color: black;
     letter-spacing: 1px;
 
+    @include xs { font-size: 11px; }
+    @include sm { font-size: 14px; }
+    @include md { font-size: 18px; }
+    @include lg { font-size: 22px; }
+
     &:hover {
 
       .sliding-border {
-        animation: sliding-border-out 0.7s forwards ease-out;
+
+        @include lg {
+          animation: sliding-border-out 0.7s forwards ease-out;
+        }
       }
     }
 
@@ -34,6 +56,24 @@
       p {
         margin-left: 5px;
       }
+
+      svg {
+        @include xs {
+          width: 15px;
+          height: 15px;
+        }
+
+        @include sm {
+          width: 20px;
+          height: 20px;
+        }
+
+        @include md {
+          width: 25px;
+          height: 25px;
+        }
+      }
+
     }
 
     .sliding-border {
@@ -44,13 +84,16 @@
     }
 
     .border-in {
-      animation: sliding-border-in 0.5s forwards ease-out;
+      @include lg {
+        animation: sliding-border-in 0.5s forwards ease-out;
+      }
     }
   }
 
   #home-link {
     position: absolute;
     left: 0;
+
   }
   #logout-link {
     position: absolute;
@@ -60,8 +103,25 @@
   .corner-links {
     transition: stroke 0.4s;
 
+    @include xs {
+      width: 15px;
+      height: 15px;
+    }
+
+    @include sm {
+      width: 20px;
+      height: 20px;
+    }
+
+    @include md {
+      width: 25px;
+      height: 25px;
+    }
+
     &:hover {
-      stroke: #ba8814;
+      @include lg {
+        stroke: #ba8814;
+      }
     }
   }
 }

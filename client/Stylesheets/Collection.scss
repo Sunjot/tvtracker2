@@ -85,10 +85,10 @@
   @include flex(column, flex-start, center);
   font-family: 'Montserrat';
 
-  @include xs { margin: 10px; }
-  @include sm { margin: 15px;  }
-  @include md { margin: 30px;  }
-  @include lg { margin: 40px;  }
+  @include xs { margin: 20 10; }
+  @include sm { margin: 20 15;  }
+  @include md { margin: 30;  }
+  @include lg { margin: 40;  }
 
   #add-more {
     text-align: center;
