@@ -5,6 +5,35 @@
   align-items: $align;
 }
 
+$xs-width: 320px;
+$sm-width: 400px;
+$md-width: 600px;
+$lg-width: 1024px;
+
+@mixin xs {
+  @media (min-width: #{$xs-width}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: #{$sm-width}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$md-width}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$lg-width}) {
+    @content;
+  }
+}
+
 @import url('https://fonts.googleapis.com/css?family=Quicksand|Righteous|Amatic+SC|Quattrocento+Sans|Staatliches|Cabin+Condensed:600|Montserrat');
 
 

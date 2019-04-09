@@ -6,14 +6,32 @@
 
   #searchLink {
     font-family: 'Montserrat';
-    font-size: 16px;
     text-decoration: none;
     border: 1px solid black;
     color: black;
-    padding: 10px;
     border-radius: 3px;
     background-color: white;
     transition: background-color 0.3s, color 0.3s;
+
+    @include xs {
+      font-size: 12px;
+      padding: 3 5 3 5;
+    }
+
+    @include sm {
+      font-size: 14px;
+      padding: 5px;
+    }
+
+    @include md {
+      font-size: 15px;
+      padding: 7;
+    }
+
+    @include lg {
+      font-size: 16px;
+      padding: 10;
+    }
 
     &:hover {
       background-color: black;
@@ -24,8 +42,24 @@
   #suggestions {
     @include flex(column, flex-start, center);
     font-family: 'Cabin Condensed';
-    font-size: 22px;
-    margin-top: 30px;
+
+    @include xs {
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    @include sm {
+      font-size: 16px;
+    }
+
+    @include md {
+      font-size: 17px;
+    }
+
+    @include lg {
+      font-size: 22px;
+      margin-top: 30px;
+    }
 
     #suggestions-row {
       @include flex(row, center, flex-start);
@@ -35,18 +69,35 @@
 
     #suggestions-msg {
       font-family: 'Montserrat';
-      font-size: 18px;
       margin-top: 20px;
       border-bottom: 1px solid black;
       padding: 5px;
+
+      @include xs { font-size: 12px; }
+      @include sm { font-size: 14px; }
+      @include md { font-size: 15px; }
+      @include lg { font-size: 18px; }
     }
   }
 }
 
 #coll-cont {
   @include flex(column, flex-start, center);
-  margin: 40px;
   font-family: 'Montserrat';
+
+  @include xs { margin: 10px; }
+  @include sm { margin: 15px;  }
+  @include md { margin: 30px;  }
+  @include lg { margin: 40px;  }
+
+  #add-more {
+    text-align: center;
+
+    @include xs { font-size: 12px; }
+    @include sm { font-size: 14px; }
+    @include md { font-size: 15px; }
+    @include lg { font-size: 16px; }
+  }
 
   #filter-list {
     @include flex(row, center, flex-start);
@@ -54,13 +105,31 @@
 
     .filter {
       border: 1px solid black;
-      padding: 5px;
-      margin: 5px;
       border-radius: 2px;
       transition: background-color 0.4s;
       cursor: pointer;
       background-color: white;
       color: black;
+
+      @include xs {
+        padding: 3px;
+        margin: 3px;
+        font-size: 10px;
+      }
+
+      @include sm {
+        font-size: 12px;
+      }
+
+      @include md {
+        padding: 5px;
+        margin: 5px;
+        font-size: 14px;
+      }
+
+      @include lg {
+        font-size: 15px;
+      }
 
       &:hover {
         background-color: #ededed;
@@ -80,7 +149,10 @@
   #coll-row {
     @include flex(row, center, flex-start);
     flex-wrap: wrap;
-    margin: 20px;
+
+    @include xs { margin: 10 0; }
+    @include sm { margin: 15 10;  }
+    @include lg { margin: 20;  }
   }
 
 }
@@ -92,142 +164,76 @@
   transition: transform 0.5s;
 
   &:hover {
-    transform: scale(1.05);
     cursor: pointer;
 
+    @include lg {
+      transform: scale(1.05);
+    }
+
     img {
-      filter: brightness(50%);
+      @include lg {
+        filter: brightness(50%);
+      }
     }
 
     svg {
-      opacity: 1;
+      @include lg {
+        opacity: 1 !important;
+      }
     }
   }
 
   svg {
     position: absolute;
     z-index: 100;
-    margin: 5px;
-    opacity: 0;
     transition: opacity 0.5s, transform 0.5s;
-    top: 0;
-    right: 0;
 
-    &:hover {
-      transform: scale(0.9);
+    @include xs {
+      width: 20px;
+      height: 20px;
+      opacity: 1;
+      background-color: black;
+      padding: 1px;
+      border-radius: 5px;
+    }
+
+    @include lg {
+      width: 30px;
+      height: 30px;
+      opacity: 0;
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
     }
   }
 
   img {
-    height: 200px;
     border-radius: 2px;
     animation: fadein 1s;
     transition: filter 0.5s;
+
+    @include xs { height: 120px; }
+    @include sm { height: 150px; }
+    @include md { height: 175px; }
+    @include lg { height: 200px; }
   }
 }
 
-@media (min-width: 320px) and (max-width: 400px) {
+#no-coll-cont .posterDiv svg {
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
 
-  #no-coll-cont {
+#coll-cont .posterDiv svg {
+  top: 0;
+  right: 0;
+  margin: 5px;
 
-    #searchLink {
-      font-size: 12px;
-      padding: 3 5 3 5;
+  &:hover {
+    @include lg {
+      transform: scale(0.9);
     }
-
-    #suggestions {
-      font-size: 14px;
-      margin-top: 20px;
-
-      #suggestions-msg {
-        font-size: 12px;
-        margin-top: 20px;
-        padding: 5px;
-      }
-    }
-
-    .posterDiv {
-
-      &:hover {
-        transform: none;
-
-        img {
-          filter: brightness(100%);
-        }
-      }
-
-      img {
-        height: 150px;
-        filter: brightness(100%);
-      }
-
-      svg {
-        width: 20px;
-        height: 20px;
-        opacity: 1;
-        transition: none;
-        background-color: black;
-        padding: 1px;
-        border-radius: 5px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: 0;
-
-        &:hover {
-          transform: translate(-50%, -50%);
-        }
-      }
-    }
-  }
-
-  #coll-cont {
-    font-size: 12px;
-    margin: 20 5 5 5;
-
-    #add-more {
-      text-align: center;
-      margin: 0 10 0 10;
-    }
-
-    #filter-list > .filter {
-      padding: 3px;
-      margin: 3px;
-      font-size: 10px;
-    }
-
-    .posterDiv {
-
-      &:hover {
-        transform: none;
-
-        img {
-          filter: brightness(100%);
-        }
-      }
-
-      img {
-        height: 120px;
-        filter: brightness(100%);
-      }
-
-      svg {
-        width: 20px;
-        height: 20px;
-        opacity: 1;
-        transition: none;
-        background-color: black;
-        padding: 1px;
-        border-radius: 5px;
-
-        &:hover {
-          transform: scale(1);
-        }
-      }
-    }
-  }
-
-  #coll-row {
-    margin: 0;
   }
 }
