@@ -25,7 +25,7 @@ class Nav extends React.Component {
     return(
       <div id="nav-cont" className="renderFade">
         <div id="nav-bar">
-          <Link id="home-link" to="/home"><HomeIcon color="black" size={25}/></Link>
+          <Link id="home-link" to="/home"><HomeIcon className="corner-links" color="black" size={25}/></Link>
           <Link to="/collection" className="nav-item" onMouseOver={(e) => this.navHover(e)}>
             <div className="nav-item-inner">
               <Folder color="black" size={20}/>
@@ -40,7 +40,7 @@ class Nav extends React.Component {
             </div>
             <div className="sliding-border"></div>
           </Link>
-          <Link id="logout-link" to="/" onClick={this.logout}><LogOut color="black" size={25}/></Link>
+          <Link id="logout-link" to="/" onClick={this.logout}><LogOut className="corner-links" color="black" size={25}/></Link>
         </div>
         <div id="bottom-nav-border"></div>
       </div>

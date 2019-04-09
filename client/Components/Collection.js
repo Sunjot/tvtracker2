@@ -57,7 +57,7 @@ class Collection extends React.Component {
             </div>
           }
           {this.props.filters.length < 4 &&
-            <div>Add more shows to be able to filter your collection by genres!</div>
+            <div id="add-more">Add more shows to be able to filter your collection by genres!</div>
           }
         </div>
         <div id="coll-row">

@@ -23,7 +23,7 @@ var j = schedule.scheduleJob('* 4 * * *', () => {
   updateAirDates();
 });
 
- updateAirDates(); // uncomment this when running manually, otherwise leave it for scheduler
+ // updateAirDates(); // uncomment this when running manually, otherwise leave it for scheduler
 
 async function getShow(show) {
   var tvURL = "https://api.themoviedb.org/3/tv/" + show.showID + "?api_key=" + process.env.TMDBKEY;

@@ -33,7 +33,6 @@
 
       p {
         margin-left: 5px;
-        transition: color 0.4s;
       }
     }
 
@@ -58,7 +57,7 @@
     right: 0px;
   }
 
-  svg {
+  .corner-links {
     transition: stroke 0.4s;
 
     &:hover {

@@ -41,7 +41,7 @@ class Suggestions extends React.Component {
           <div id="suggestions-row">
             {this.state.suggestions.slice(0, 8).map((show, x) => {
               return (
-                <div id="posterDiv" key={x}
+                <div className="posterDiv" key={x}
                 onClick={this.props.addId.includes(show.id)? () => this.props.removeShow(show.id) : () => this.props.addShow(show.id)}>
                   {this.props.addId.includes(show.id)?
                     <Check id="plus-icon" size={30} color="White"/> :
