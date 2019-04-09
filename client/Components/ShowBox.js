@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Close from 'react-feather/dist/icons/x-square';
+import '../Stylesheets/ShowBox.scss';
 
 class ShowBox extends React.Component {
 

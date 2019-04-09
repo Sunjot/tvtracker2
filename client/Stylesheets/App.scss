@@ -71,6 +71,40 @@ p {
   }
 }
 
+.open {
+  animation: fadein 0.5s forwards;
+}
+
+.close {
+  animation: fadeout 0.5s forwards;
+}
+
+.dim {
+  animation: fadeinhalf 0.5s forwards;
+}
+
+.glow {
+  animation: fadeouthalf 0.5s forwards;
+}
+
+@keyframes fadeinhalf {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeouthalf {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
