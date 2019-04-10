@@ -1,53 +1,149 @@
 @import "./App.scss";
 
 #home-top-cont {
-  @include flex(row, flex-start, flex-start);
   width: 100%;
-  height: 500px;
+
+  @include xs {
+    height: auto;
+  }
+  @include md {
+    height: 500px;
+  }
+
+  @include xs {
+    @include flex(column-reverse, flex-start, center);
+  }
+
+  @include md {
+    @include flex(row, flex-start, flex-start);
+  }
 
   #home-title-sec {
-    @include flex(column, center, flex-start);
-    width: 40%;
     height: 100%;
+
+    @include xs {
+      @include flex(column, flex-start, center);
+      margin: 10px;
+    }
+
+    @include md {
+      @include flex(column, center, flex-start);
+      width: 40%;
+      margin: 0;
+    }
 
     #home-title {
       position: relative;
       font-family: "Amatic SC";
-      font-size: 80px;
-      left: 100px;
+
+      @include xs {
+        left: 0px;
+        font-size: 60px;
+      }
+
+      @include md {
+        left: 50px;
+        font-size: 70px;
+      }
+
+      @include lg {
+        left: 80px;
+        font-size: 80px;
+      }
     }
 
     #home-slogan {
       position: relative;
       margin: 0;
       font-family: "Quicksand";
-      font-size: 20px;
-      left: 100px;
+
+      @include xs {
+        left: 0px;
+        font-size: 15px;
+      }
+
+      @include md {
+        left: 50px;
+        font-size: 15px;
+      }
+
+      @include lg {
+        left: 80px;
+        font-size: 20px;
+      }
     }
 
     #auth {
       @include flex(row, flex-start, flex-start);
       position: relative;
       top: 15px;
-      left: 100px;
+
+      @include xs {
+        left: 0px;
+      }
+
+      @include md {
+        left: 50px;
+      }
+
+      @include lg {
+        left: 80px;
+      }
 
       a {
         text-decoration: none;
         font-family: "Righteous";
         color: black;
         margin-right: 10px;
-        font-size: 18px;
+
+        @include xs {
+          font-size: 15px;
+        }
+
+        @include md {
+          font-size: 18px;
+        }
       }
     }
   }
 
   #home-pic-sec {
-    @include flex(column, center, flex-end);
-    width: 60%;
     height: 100%;
+    position: relative;
+
+    @include xs {
+      @include flex(column, flex-start, center);
+      width: 100%;
+    }
+
+    @include md {
+      @include flex(column, center, flex-end);
+      width: 60%;
+      right: -100px;
+    }
+
+    @include lg {
+      right: 0;
+    }
 
     #home-banner {
       width: 700px;
+
+      @include xs {
+        width: 170%;
+      }
+
+      @include sm {
+        width: 120%;
+      }
+
+      @include md {
+        width: 100%;
+      }
+
+      @include lg {
+        width: 100%;
+      }
     }
   }
 }

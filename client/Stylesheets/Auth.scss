@@ -7,10 +7,25 @@
 
   #auth-tv-title {
     font-family: "Amatic SC";
-    font-size: 60px;
     margin-bottom: 20px;
     color: black;
     text-decoration: none;
+
+    @include xs {
+      font-size: 40px;
+    }
+
+    @include sm {
+      font-size: 45px;
+    }
+
+    @include md {
+      font-size: 55px;
+    }
+
+    @include lg {
+      font-size: 60px;
+    }
   }
 
   #form {
@@ -21,11 +36,42 @@
     border-radius: 2px;
     background-color: #2f4550;
 
+    @include xs {
+      width: 280px;
+    }
+
+    @include sm {
+      width: 325px;
+    }
+
+    @include md {
+      width: 400px;
+    }
+
+    @include lg {
+      width: 450px;
+    }
+
     #auth-title {
       font-family: "Quicksand";
-      font-size: 30px;
       margin: 20px;
       color: white;
+
+      @include xs {
+        font-size: 20px;
+      }
+
+      @include sm {
+        font-size: 22px;
+      }
+
+      @include md {
+        font-size: 26px;
+      }
+
+      @include lg {
+        font-size: 30px;
+      }
     }
 
     input {
@@ -33,24 +79,66 @@
     }
 
     input[type=text], input[type=password] {
-      width: 375px;
-      height: 40px;
       margin-bottom: 15px;
-      font-size: 20px;
       border-radius: 2px;
       border: 1px solid #d6d6d6;
       padding: 5px;
+
+      @include xs {
+        width: 250px;
+        height: 25px;
+        font-size: 15px;
+      }
+
+      @include sm {
+        width: 275px;
+        height: 30px;
+        font-size: 16px;
+      }
+
+      @include md {
+        width: 325px;
+        height: 35px;
+        font-size: 18px;
+      }
+
+      @include lg {
+        width: 375px;
+        height: 40px;
+        font-size: 20px;
+      }
     }
 
     input[type=submit] {
-      width: 80px;
-      height: 35px;
-      font-size: 20px;
       background-color: white;
       border: none;
       border-radius: 1px;
       cursor: pointer;
       transition: background-color 0.2s;
+
+      @include xs {
+        width: 60px;
+        height: 25px;
+        font-size: 15px;
+      }
+
+      @include sm {
+        width: 65px;
+        height: 28px;
+        font-size: 16px;
+      }
+
+      @include md {
+        width: 75px;
+        height: 33px;
+        font-size: 18px;
+      }
+
+      @include lg {
+        width: 80px;
+        height: 35px;
+        font-size: 20px;
+      }
 
       &:hover {
         background-color: #efefef;
@@ -59,9 +147,27 @@
 
     #auth-other-message {
       font-family: "Quicksand";
-      font-size: 18px;
       color: white;
-      margin: 50px;
+
+      @include xs {
+        font-size: 14px;
+        margin: 20px;
+      }
+
+      @include sm {
+        font-size: 15px;
+        margin: 30px;
+      }
+
+      @include md {
+        font-size: 17px;
+        margin: 40px;
+      }
+
+      @include lg {
+        font-size: 18px;
+        margin: 50px;
+      }
 
       a {
         color: white;
