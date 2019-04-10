@@ -12,20 +12,18 @@ class ShowBox extends React.Component {
           {this.props.displayContent === 1 &&
             <div id="show-box-inner">
               <img id="expand-poster" src={"https://image.tmdb.org/t/p/w1280" + this.props.show.poster_path}/>
-              <div id="show-info">
-                <div id="title-genres">
-                  <p id="title">{this.props.show.original_name}</p>
-                  <div id="genres">
-                    {this.props.show.genres.map((g, x) => {
-                        return (
-                          <p key={x} className="sec">{g.name}</p>
-                        )
-                      })
-                    }
-                  </div>
+              <div id="title-genres">
+                <p id="title">{this.props.show.original_name}</p>
+                <div id="genres">
+                  {this.props.show.genres.map((g, x) => {
+                      return (
+                        <p key={x} className="sec">{g.name}</p>
+                      )
+                    })
+                  }
                 </div>
-                <p id="show-desc">{this.props.show.overview}</p>
               </div>
+              <p id="show-desc">{this.props.show.overview}</p>
               <Close id="close-icon" size={30} color="Black" onClick={() => this.props.closeShow()} />
             </div>
           }
