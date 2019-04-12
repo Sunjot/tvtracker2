@@ -9,6 +9,7 @@ const User = require('./models/user');
 const Show = require('./models/show');
 const fetch = require('node-fetch');
 const MongoStore = require('connect-mongo')(session);
+const path = require('path');
 
 const port = 3000;
 const app = express();
@@ -35,7 +36,6 @@ app.use(passport.session()); // set key for encrypting cookies
 passport.use(User.createStrategy()); // helper method of passport-local-mongoose plugin to setup strategy
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 var db = mongoose.connection; // Connection established
 db.once('open', () => {
@@ -217,5 +217,12 @@ app.post('/api/tv', isLogged, function(req, res, next) {
     return res.send(data)
   });
 });
+
+if (process.env.PROD === 'true') {
+  app.use(express.static('build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build/index.html'));
+  });
+}
 
 app.listen(port, () => console.log(`Listening on ${port}`));

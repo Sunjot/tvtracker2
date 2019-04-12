@@ -48,6 +48,7 @@
       @include flex(column, flex-start, flex-start);
       width: 100%;
       min-height: 300px;
+      margin: 10 0 10 0;
 
       #no-listings {
         @include flex(row, center, flex-start);
@@ -61,17 +62,19 @@
       .sched-item {
         @include flex(row, flex-start, flex-start);
         width: 100%;
-        padding: 10px;
+        padding: 5 10 5 10;
         box-sizing: border-box;
         transition: background-color 0.5s;
+        height: 120px;
 
         &:hover {
           background-color: #efefef;
         }
 
         img {
-          width: 70px;
+          height: 100%;
           cursor: pointer;
+          border-radius: 1px;
         }
 
         .show-info {

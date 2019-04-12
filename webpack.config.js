@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   module: {
     rules: [
@@ -39,6 +41,7 @@ module.exports = {
       }
     ]
   },
+  entry: ['babel-polyfill', __dirname + '/client/index.js'], // entry file for bundling
   output: {
     filename: "bundle.js", // bundle name
     path: __dirname + '/build' // output folder
@@ -50,6 +53,5 @@ module.exports = {
     proxy: {
       '/api': 'http://[::1]:3000'
     }
-  },
-  entry: ['babel-polyfill', __dirname + '/client/index.js'] // entry file for bundling
+  }
 }

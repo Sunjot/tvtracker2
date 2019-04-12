@@ -18,14 +18,17 @@ db.once('open', () => {
   console.log("Connection established to MongoDB Cluster");
 });
 
-// Fires the update function at the 4th hour (local) of every day
-var j = schedule.scheduleJob('* 4 * * *', () => {
+var index = 0; // Tracks total amount of shows updated; reverts to 0 when all updated
+var tracker = 0; // Tracks how many shows (0 to 40) have been updated for the current fired schedule
+
+// Fires the update function at the 59th minute of every hour
+var j = schedule.scheduleJob('59 * * * *', () => {
   updateAirDates();
 });
 
- // updateAirDates(); // uncomment this when running manually, otherwise leave it for scheduler
-
+var index = 0;
 async function getShow(show) {
+  index = index + 1;
   var tvURL = "https://api.themoviedb.org/3/tv/" + show.showID + "?api_key=" + process.env.TMDBKEY;
   fetch(tvURL, {
     method: 'get'
@@ -67,14 +70,36 @@ async function getShow(show) {
 function updateAirDates() {
 
   Show.find({}, (err, shows) => {
+    shows.slice(index, index+40).map(show => {
+      getShow(show);
+      tracker = tracker+1;
+    });
+    if (tracker !== 40) index = 0;
+    tracker = 0;
+  });
+}
+
+/*function updateAirDates() {
+
+  Show.find({}, (err, shows) => {
     shows.slice(0, 40).map(show => getShow(show));
 
     // API limit of 40 every 10 seconds puts restriction on number of API calls
-    // So for every 40 shows that exist, we delay by 10s
+    // So for every 40 shows that exist, we delay by 20s (to be sure)
     // Could not use these in a loop since loops are synchronous
-    setTimeout(() => shows.slice(40, 80).map(show => getShow(show)), 10000);
-    setTimeout(() => shows.slice(80, 120).map(show => getShow(show)), 10000);
-    setTimeout(() => shows.slice(120, 160).map(show => getShow(show)), 10000);
-    setTimeout(() => shows.slice(160, 200).map(show => getShow(show)), 10000);
+    // Assuming a maximum of 200 shows
+    setTimeout(() => {
+      shows.slice(40, 80).map(show => getShow(show));
+
+      setTimeout(() => {
+        shows.slice(80, 120).map(show => getShow(show));
+
+        setTimeout(() => {
+          shows.slice(120, 160).map(show => getShow(show));
+
+          setTimeout(() => shows.slice(160, 200).map(show => getShow(show)), 20000);
+        }, 20000);
+      }, 20000);
+    }, 20000);
   });
-}
+}*/

@@ -67,7 +67,7 @@ class Collection extends React.Component {
                 {this.checkGenre(show.genres) === true &&
                   <div className="posterDiv" >
                     <Remove id="plus-icon" size={30} color="White" onClick={() => this.props.removeShow(show.showID)} />
-                    <img id={show.showID} src={"https://image.tmdb.org/t/p/w1280" + show.poster} onClick={(e) => this.props.expandShow(e)}></img>
+                    <img id={show.showID} src={"https://image.tmdb.org/t/p/w500" + show.poster} onClick={(e) => this.props.expandShow(e)}></img>
                   </div>
                 }
               </div>
