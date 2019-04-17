@@ -26,6 +26,8 @@ var j = schedule.scheduleJob('59 * * * *', () => {
   updateAirDates();
 });
 
+// manualUpdateAirDates();
+
 var index = 0;
 async function getShow(show) {
   index = index + 1;
@@ -51,8 +53,9 @@ async function getShow(show) {
         }
       }
 
+      console.log(data.original_name + " and " + sh.nextAir.get('date'));
       // If the episode has no more air dates, update nextAir in the DB with an undefined date/name
-      if (!data.next_episode_to_air && sh.nextAir.date != undefined) {
+      if (!data.next_episode_to_air && sh.nextAir.get('date') != undefined) {
         sh.nextAir.set('date', undefined);
         sh.nextAir.set('name', undefined);
         console.log("Updated " + data.original_name + " to no future episode air date");
@@ -79,7 +82,7 @@ function updateAirDates() {
   });
 }
 
-/*function updateAirDates() {
+/*function manualUpdateAirDates() {
 
   Show.find({}, (err, shows) => {
     shows.slice(0, 40).map(show => getShow(show));
