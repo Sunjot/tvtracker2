@@ -103,16 +103,17 @@
   }
 
   #home-pic-sec {
-    position: relative;
 
     @include xs {
       @include flex(column, flex-start, center);
       width: 100%;
       height: auto;
+      position: static;
     }
 
     @include md {
       @include flex(column, center, flex-end);
+      position: relative;
       width: 60%;
       right: -100px;
       height: 100%;
