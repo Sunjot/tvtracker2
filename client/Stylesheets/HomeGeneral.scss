@@ -4,32 +4,27 @@
   width: 100%;
 
   @include xs {
+    @include flex(column-reverse, flex-start, center);
     height: auto;
   }
   @include md {
+    @include flex(row, flex-start, flex-start);
     height: 500px;
   }
 
-  @include xs {
-    @include flex(column-reverse, flex-start, center);
-  }
-
-  @include md {
-    @include flex(row, flex-start, flex-start);
-  }
-
   #home-title-sec {
-    height: 100%;
 
     @include xs {
       @include flex(column, flex-start, center);
       margin: 10px;
+      height: auto;
     }
 
     @include md {
       @include flex(column, center, flex-start);
       width: 40%;
       margin: 0;
+      height: 100%;
     }
 
     #home-title {
@@ -108,18 +103,19 @@
   }
 
   #home-pic-sec {
-    height: 100%;
     position: relative;
 
     @include xs {
       @include flex(column, flex-start, center);
       width: 100%;
+      height: auto;
     }
 
     @include md {
       @include flex(column, center, flex-end);
       width: 60%;
       right: -100px;
+      height: 100%;
     }
 
     @include lg {
