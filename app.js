@@ -18,7 +18,7 @@ dotenv.config(); // used to load env variables from .env file
 
 // Connection to mongoDB Atlas Cluster
 var mongoURL = "mongodb+srv://sunjotsingh:" + process.env.MDBPASS + "@tvtracker-bykmv.mongodb.net/tv?retryWrites=true";
-mongoose.connect(mongoURL, {useNewUrlParser: true}).catch(function(err) {
+mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true}).catch(function(err) {
   console.log("Error connecting to DB: " + err);
 });
 
